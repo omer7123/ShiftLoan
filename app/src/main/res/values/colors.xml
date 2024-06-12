@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bg_primary">#FFFFFFFF</color>
+    <color name="bg_secondary">#F1F1F2</color>
+    <color name="bg_tertiary">#9D9E9F</color>
+    <color name="bg_disable">#E5E5E5</color>
+    <color name="bg_invert">#272F3A</color>
+
+    <color name="font_primary">#3E3E3E</color>
+    <color name="font_secondary">#73787F</color>
+    <color name="font_disable">#A1A5AA</color>
+    <color name="font_primary_invert">#FFFFFF</color>
+
+    <color name="permanent_primary">#FED200</color>
+    <color name="permanent_primary_light">#FFE982</color>
+    <color name="permanent_primary_dark">#F1CB16</color>
+
+    <color name="indicator_error">#E53E3E</color>
+    <color name="indicator_positive">#19B36D</color>
+    <color name="indicator_attention">#FE9800</color>
+
+    <color name="border_primary">#959698</color>
+    <color name="border_secondary">#E3E4E5</color>
+</resources>
