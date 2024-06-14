@@ -19,10 +19,21 @@
         android:id="@+id/registrationFragment"
         android:name="com.example.finalproject.ui.registrationFragment.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" />
+        tools:layout="@layout/fragment_registration" >
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/authFragment"
+            android:id="@+id/action_registrationFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/authorizationFragment"
         android:name="com.example.finalproject.ui.authorizationFragment.AuthorizationFragment"
         android:label="fragment_authorization"
         tools:layout="@layout/fragment_authorization" />
+    <fragment
+        android:id="@+id/boardFragment"
+        android:name="com.example.finalproject.ui.boardFragment.BoardFragment"
+        android:label="fragment_board"
+        tools:layout="@layout/fragment_board" />
 </navigation>

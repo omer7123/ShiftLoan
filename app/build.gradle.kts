@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id ("com.google.devtools.ksp")
+    id ("org.jetbrains.kotlin.plugin.serialization")
 }
 
 android {
@@ -50,4 +52,20 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation (libs.moshi)
+    implementation (libs.moshi.kotlin)
+
+    implementation (libs.converter.gson)
+    implementation (libs.okhttp)
+    implementation (libs.logging.interceptor)
+
+    implementation (libs.dagger)
+    ksp (libs.dagger.compiler)
+
+    implementation (libs.retrofit)
+    implementation (libs.retrofit2.kotlinx.serialization.converter)
+    implementation (libs.kotlinx.serialization.json)
+
+    implementation (libs.converter.scalars)
 }
