@@ -2,7 +2,8 @@ package com.example.finalproject.ui.authorizationFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,11 +14,15 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentAuthorizationBinding
 import com.example.finalproject.domain.entity.AuthEntity
-import com.example.finalproject.presentation.authorizationFragment.AuthorizationStatusState
+import com.example.finalproject.presentation.authorizationFragment.AuthorizationScreenState
 import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.util.expand
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
+import com.example.finalproject.util.shrink
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import javax.inject.Inject
 
 
@@ -41,7 +46,7 @@ class AuthorizationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentAuthorizationBinding.inflate(layoutInflater)
-        viewModel.authorizationState.observe(viewLifecycleOwner) { state ->
+        viewModel.screenState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
         return binding.root
@@ -49,8 +54,13 @@ class AuthorizationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initView()
         initListener()
+    }
+
+    private fun initView() {
+        setupTextChangedListener(binding.loginTv, binding.containerLogin)
+        setupTextChangedListener(binding.passwordTv, binding.containerPassword)
     }
 
     private fun initListener() {
@@ -61,21 +71,53 @@ class AuthorizationFragment : Fragment() {
         }
     }
 
-    private fun render(state: AuthorizationStatusState) {
-        when(state){
-            is AuthorizationStatusState.Error -> {
-                requireContext().showToast(state.msg)
-                Log.e("Error", state.msg)
-                binding.content.visibility = View.VISIBLE
-                binding.progressCircular.isVisible = false
-            }
-            AuthorizationStatusState.Initial -> {}
-            AuthorizationStatusState.Loading -> {
-                binding.content.visibility = View.INVISIBLE
-                binding.progressCircular.isVisible = true
-            }
-            AuthorizationStatusState.Success -> findNavController().navigate(R.id.boardFragment)
+
+    private fun render(state: AuthorizationScreenState) {
+        when (state) {
+            is AuthorizationScreenState.Error -> renderError(state.msg)
+            AuthorizationScreenState.Initial -> {}
+            AuthorizationScreenState.Loading -> renderLoading()
+            AuthorizationScreenState.Success -> renderSuccess()
+            is AuthorizationScreenState.ValidationError -> renderValidationError(state)
         }
+    }
+
+    private fun renderSuccess() {
+        findNavController().navigate(R.id.boardFragment)
+    }
+
+    private fun renderValidationError(state: AuthorizationScreenState.ValidationError) {
+        binding.containerLogin.error = state.nameError
+        binding.containerPassword.error = state.passwordError
+    }
+
+    private fun renderLoading() {
+        binding.content.shrink()
+        binding.progressCircular.isVisible = true
+        binding.progressCircular.scaleX = 0f
+        binding.progressCircular.scaleY = 0f
+        binding.progressCircular.expand()
+    }
+
+    private fun renderError(msg: String) {
+        requireContext().showToast(msg)
+        binding.content.expand()
+        binding.progressCircular.isVisible = false
+    }
+
+    private fun setupTextChangedListener(
+        editText: TextInputEditText,
+        textInputLayout: TextInputLayout
+    ) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                textInputLayout.error = null
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
     }
 
     override fun onDestroy() {

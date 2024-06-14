@@ -68,4 +68,6 @@ dependencies {
     implementation (libs.kotlinx.serialization.json)
 
     implementation (libs.converter.scalars)
+
+    implementation (libs.androidx.security.crypto)
 }

@@ -14,18 +14,18 @@
         android:id="@+id/splashScreenFragment"
         android:name="com.example.finalproject.ui.splashScreenFragment.HomeAuthenticationFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" />
+        tools:layout="@layout/fragment_splash_screen" >
+        <action
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/splashScreenFragment"
+            android:id="@+id/action_splashScreenFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registrationFragment"
         android:name="com.example.finalproject.ui.registrationFragment.RegistrationFragment"
         android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
-        <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/authFragment"
-            android:id="@+id/action_registrationFragment_to_boardFragment"
-            app:destination="@id/boardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_registration" />
     <fragment
         android:id="@+id/authorizationFragment"
         android:name="com.example.finalproject.ui.authorizationFragment.AuthorizationFragment"

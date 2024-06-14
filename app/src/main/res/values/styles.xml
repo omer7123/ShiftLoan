@@ -75,6 +75,5 @@
         <item name="passwordToggleDrawable">@drawable/selector_password_toggle</item>
         <item name="passwordToggleEnabled">true</item>
     </style>
-    
 
 </resources>
