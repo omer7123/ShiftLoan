@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Text">
+        <item name="fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/font_primary</item>
+    </style>
+
+    <style name="Headline" parent="Text">
+        <item name="android:textSize">22sp</item>
+        <item name="fontWeight">600</item>
+    </style>
+
+    <style name="Headline2" parent="Text">
+        <item name="android:textSize">20sp</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Body" parent="Text">
+        <item name="android:textSize">16sp</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+    <style name="Body2" parent="Text">
+        <item name="android:textSize">14sp</item>
+        <item name="fontWeight">500</item>
+    </style>
+
+    <style name="Caption" parent="Text">
+        <item name="android:textSize">12sp</item>
+        <item name="fontWeight">400</item>
+    </style>
+
+
+    <style name="Button" parent="Body2">
+        <item name="cornerRadius">8dp</item>
+    </style>
+
+    <style name="ButtonPrimaryActive" parent="Button">
+        <item name="android:paddingTop">13dp</item>
+        <item name="android:paddingBottom">13dp</item>
+        <item name="backgroundTint">@color/permanent_primary</item>
+    </style>
+
+    <style name="BottomNavigationViewItemActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#0D202030</item>
+        <item name="android:width">55dp</item>
+        <item name="itemTextColor">@color/permanent_primary_dark</item>
+        <item name="iconTint">@color/permanent_primary_dark</item>
+        <item name="android:height">48dp</item>
+    </style>
+
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:fontFamily">@font/montserrat</item>
+    </style>
+
+    <style name="TextInputLayout">
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="cursorColor">@color/bg_tertiary</item>
+        <item name="errorEnabled">true</item>
+        <item name="helperTextEnabled">true</item>
+        <item name="hintTextColor">@color/font_secondary</item>
+    </style>
+
+    <style name="TextInputLayoutAuthLogin" parent="TextInputLayout">
+        <item name="boxStrokeColor">@color/border_primary</item>
+        <item name="boxBackgroundColor">@color/bg_primary</item>
+    </style>
+
+    <style name="TextInputLayoutAuthPassword" parent="TextInputLayoutAuthLogin">
+        <item name="passwordToggleDrawable">@drawable/selector_password_toggle</item>
+        <item name="passwordToggleEnabled">true</item>
+    </style>
+    
+
+</resources>

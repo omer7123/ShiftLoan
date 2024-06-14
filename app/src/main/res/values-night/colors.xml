@@ -22,4 +22,8 @@
     <color name="border_primary">#B4B4B4</color>
     <color name="border_secondary">#363E48</color>
 
+    <color name="icon_primary">#FFFFFF</color>
+    <color name="icon_secondary">#A1A5AA</color>
+    <color name="icon_disable">#73787F</color>
+    <color name="icon_invert">#73787F</color>
 </resources>

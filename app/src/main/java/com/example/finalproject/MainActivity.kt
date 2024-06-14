@@ -1,11 +1,8 @@
 package com.example.finalproject
 
 import android.os.Bundle
-import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -28,6 +25,9 @@ class MainActivity : AppCompatActivity() {
     private fun initDestination() {
         navController.addOnDestinationChangedListener { navController, destination, arguments ->
 
+            if (destination.id == R.id.splashScreenFragment){
+                window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
+            }
 //            if (destination.id == R.id.registerFragment ||
 //                destination.id == R.id.authFragment
 //

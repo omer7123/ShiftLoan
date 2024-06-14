@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_graph">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/splashScreenFragment">
 
+    <dialog
+        android:id="@+id/authFragment"
+        android:name="com.example.finalproject.ui.authFragment.AuthenticationFragment"
+        android:label="fragment_auth_fragment"
+        tools:layout="@layout/fragment_authentication" />
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.example.finalproject.ui.splashScreenFragment.HomeAuthenticationFragment"
+        android:label="fragment_splash_screen"
+        tools:layout="@layout/fragment_splash_screen" />
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="com.example.finalproject.ui.registrationFragment.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" />
+    <fragment
+        android:id="@+id/authorizationFragment"
+        android:name="com.example.finalproject.ui.authorizationFragment.AuthorizationFragment"
+        android:label="fragment_authorization"
+        tools:layout="@layout/fragment_authorization" />
 </navigation>
