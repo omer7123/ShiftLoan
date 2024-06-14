@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashScreenFragment">
+    app:startDestination="@id/homeAuthenticationFragment">
 
     <dialog
         android:id="@+id/authFragment"
@@ -11,15 +11,15 @@
         android:label="fragment_auth_fragment"
         tools:layout="@layout/fragment_authentication" />
     <fragment
-        android:id="@+id/splashScreenFragment"
-        android:name="com.example.finalproject.ui.splashScreenFragment.HomeAuthenticationFragment"
+        android:id="@+id/homeAuthenticationFragment"
+        android:name="com.example.finalproject.ui.homeAuthenticationFragment.HomeAuthenticationFragment"
         android:label="fragment_splash_screen"
-        tools:layout="@layout/fragment_splash_screen" >
+        tools:layout="@layout/fragment_home_authentication">
         <action
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/splashScreenFragment"
-            android:id="@+id/action_splashScreenFragment_to_boardFragment"
-            app:destination="@id/boardFragment" />
+            android:id="@+id/action_homeAuthenticationFragment_to_boardFragment"
+            app:destination="@id/boardFragment"
+            app:popUpTo="@id/homeAuthenticationFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"

@@ -6,7 +6,7 @@
     android:background="#151E2A"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".ui.splashScreenFragment.HomeAuthenticationFragment">
+    tools:context=".ui.homeAuthenticationFragment.HomeAuthenticationFragment">
 
 
     <ImageView
@@ -17,9 +17,10 @@
 
     <ProgressBar
         android:id="@+id/progress_circular"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_marginTop="24dp"
+        android:indeterminateTint="@color/permanent_primary"
         android:visibility="gone" />
 
 

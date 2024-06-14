@@ -87,7 +87,7 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun renderSuccess() {
-        findNavController().navigate(R.id.action_splashScreenFragment_to_boardFragment)
+        findNavController().navigate(R.id.action_homeAuthenticationFragment_to_boardFragment)
     }
 
     private fun renderLoading() {

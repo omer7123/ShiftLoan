@@ -1,11 +1,13 @@
-package com.example.finalproject
+package com.example.finalproject.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -25,8 +27,9 @@ class MainActivity : AppCompatActivity() {
     private fun initDestination() {
         navController.addOnDestinationChangedListener { navController, destination, arguments ->
 
-            if (destination.id == R.id.splashScreenFragment){
+            if (destination.id == R.id.homeAuthenticationFragment){
                 window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
+                binding.bottomNav.visibility = View.GONE
             }
 //            if (destination.id == R.id.registerFragment ||
 //                destination.id == R.id.authFragment

@@ -1,7 +1,7 @@
 package com.example.finalproject.di
 
 import android.content.Context
-import com.example.finalproject.MainActivity
+import com.example.finalproject.ui.MainActivity
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Scope
