@@ -7,7 +7,7 @@ import dagger.Module
 import javax.inject.Singleton
 
 @Module
-interface AuthorizationDataModule {
+interface DataSourceModule {
 
     @Binds
     @Singleton
