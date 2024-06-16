@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center_horizontal"
+    android:background="@color/bg_primary">
+
+    <ImageView
+        android:id="@+id/illustration_iv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        tools:src="@drawable/ic_illuctration"
+        app:layout_constraintTop_toBottomOf="@id/close_iv" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        style="@style/Headline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
+        tools:text="Оформить займ"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/illustration_iv" />
+
+    <TextView
+        android:id="@+id/first_describe_tv"
+        style="@style/Body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="12dp"
+        tools:text="Выберите сумму и нажмите «продолжить». Затем укажите свои данные."
+        app:layout_constraintTop_toBottomOf="@id/title_tv" />
+
+    <TextView
+        android:id="@+id/second_describe_tv"
+        style="@style/Body"
+        android:layout_marginTop="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        tools:text="После нажатия «Оформить займ» заявка поступит в банк"
+        app:layout_constraintTop_toBottomOf="@id/first_describe_tv" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
