@@ -40,7 +40,7 @@ class HomeAuthenticationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeAuthenticationBinding.inflate(layoutInflater)
-        viewModel.authStatus.observe(viewLifecycleOwner){status->
+        viewModel.authStatus.observe(viewLifecycleOwner) { status ->
             render(status)
         }
 
@@ -49,7 +49,7 @@ class HomeAuthenticationFragment : Fragment() {
     }
 
     private fun render(status: HomeAuthenticationScreenState) {
-        when(status){
+        when (status) {
             is HomeAuthenticationScreenState.Error -> renderError()
             HomeAuthenticationScreenState.Initial -> {}
             HomeAuthenticationScreenState.Loading -> renderLoading()
@@ -59,7 +59,7 @@ class HomeAuthenticationFragment : Fragment() {
 
     private fun renderSuccess() {
         binding.progressCircular.isVisible = false
-        findNavController().navigate(R.id.action_homeAuthenticationFragment_to_boardFragment)
+        findNavController().navigate(R.id.action_homeAuthenticationFragment_to_homeFragment)
     }
 
     private fun renderLoading() {

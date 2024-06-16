@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentBoardBinding
@@ -56,7 +57,7 @@ class BoardFragment : Fragment() {
 
         TabLayoutMediator(
             binding.tabLayout, binding.viewPager
-        ) { tab: TabLayout.Tab?, position: Int ->
+        ) { tab: TabLayout.Tab?, _: Int ->
             tab?.setCustomView(R.layout.cutsom_tab)
         }.attach()
 
@@ -65,8 +66,7 @@ class BoardFragment : Fragment() {
             if (currentItem < adapter.itemCount - 1) {
                 binding.viewPager.setCurrentItem(currentItem + 1, true)
             } else {
-//                Log.e("exit", "exit")
-//                findNavController().navigate(R.id.homeFragment)
+                findNavController().navigate(R.id.action_boardFragment_to_homeFragment)
             }
         }
 
@@ -75,6 +75,10 @@ class BoardFragment : Fragment() {
             if (currentItem > 0) {
                 binding.viewPager.setCurrentItem(currentItem - 1, true)
             }
+        }
+
+        binding.closeIv.setOnClickListener {
+            findNavController().navigate(R.id.action_boardFragment_to_homeFragment)
         }
     }
 

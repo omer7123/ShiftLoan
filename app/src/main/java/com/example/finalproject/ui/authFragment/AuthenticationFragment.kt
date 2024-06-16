@@ -41,7 +41,9 @@ class AuthenticationFragment : BottomSheetDialogFragment() {
 
     private fun initView() {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.sign_in)))
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText(getString(R.string.registration)))
+        binding.tabLayout.addTab(
+            binding.tabLayout.newTab().setText(getString(R.string.registration))
+        )
         val root: View = binding.tabLayout.getChildAt(0)
         if (root is LinearLayout) {
             root.showDividers = LinearLayout.SHOW_DIVIDER_MIDDLE
@@ -60,7 +62,9 @@ class AuthenticationFragment : BottomSheetDialogFragment() {
                     0 -> AuthorizationFragment()
                     1 -> RegistrationFragment()
 
-                    else -> {AuthorizationFragment()}
+                    else -> {
+                        AuthorizationFragment()
+                    }
                 }
                 fragment.let {
                     childFragmentManager.beginTransaction()

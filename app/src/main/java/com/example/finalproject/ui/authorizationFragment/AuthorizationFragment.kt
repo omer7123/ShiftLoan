@@ -83,7 +83,7 @@ class AuthorizationFragment : Fragment() {
     }
 
     private fun renderSuccess() {
-        findNavController().navigate(R.id.boardFragment)
+        findNavController().navigate(R.id.action_homeAuthenticationFragment_to_homeFragment)
     }
 
     private fun renderValidationError(state: AuthorizationScreenState.ValidationError) {
