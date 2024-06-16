@@ -3,7 +3,6 @@ package com.example.finalproject.ui
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { navController, destination, arguments ->
 
             if (destination.id == R.id.homeAuthenticationFragment){
-                window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
+//                window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
                 binding.bottomNav.visibility = View.GONE
             }
 //            if (destination.id == R.id.registerFragment ||
