@@ -26,9 +26,9 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
-        android:backgroundTint="@color/bg_primary"
         android:layout_width="match_parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/bg_tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_height="?attr/actionBarSize"
         app:layout_constraintBottom_toBottomOf="parent"
