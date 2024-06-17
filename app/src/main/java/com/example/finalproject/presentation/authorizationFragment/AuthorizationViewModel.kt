@@ -8,13 +8,15 @@ import com.example.finalproject.core.Resource
 import com.example.finalproject.domain.entity.AuthEntity
 import com.example.finalproject.domain.useCase.LoginUseCase
 import com.example.finalproject.domain.useCase.SaveSharedPrefAuthUseCase
+import com.example.finalproject.domain.useCase.SaveTokenUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val saveSharedPrefAuthUseCase: SaveSharedPrefAuthUseCase
+    private val saveSharedPrefAuthUseCase: SaveSharedPrefAuthUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
 ) : ViewModel() {
 
     private val _screenState: MutableLiveData<AuthorizationScreenState> =
@@ -34,14 +36,15 @@ class AuthorizationViewModel @Inject constructor(
                         AuthorizationScreenState.Error(result.msg.toString())
 
                     Resource.Loading -> _screenState.value = AuthorizationScreenState.Loading
-                    is Resource.Success -> renderSuccess(auth)
+                    is Resource.Success -> renderSuccess(auth, result.data)
                 }
             }
         }
     }
 
-    private suspend fun renderSuccess(auth: AuthEntity) {
+    private suspend fun renderSuccess(auth: AuthEntity, token: String) {
         saveSharedPrefAuthUseCase(auth)
+        saveTokenUseCase(token)
         _screenState.value = AuthorizationScreenState.Success
     }
 

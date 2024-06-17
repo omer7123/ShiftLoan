@@ -35,4 +35,12 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override suspend fun saveAuth(auth: AuthEntity) {
         authenticationSharedPrefDataSource.saveAuth(auth.name, auth.password)
     }
+
+    override suspend fun saveToken(token: String) {
+        authenticationSharedPrefDataSource.saveToken(token)
+    }
+
+    override suspend fun getToken(): String {
+        return authenticationSharedPrefDataSource.getToken()
+    }
 }

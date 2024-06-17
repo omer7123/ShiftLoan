@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalproject.core.Resource
 import com.example.finalproject.domain.useCase.GetSharedPrefAuthUseCase
 import com.example.finalproject.domain.useCase.LoginUseCase
+import com.example.finalproject.domain.useCase.SaveTokenUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeAuthenticationViewModel @Inject constructor(
     private val getSharedPrefAuthUseCase: GetSharedPrefAuthUseCase,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
 ) : ViewModel() {
 
     private val _authStatus: MutableLiveData<HomeAuthenticationScreenState> = MutableLiveData()
@@ -34,9 +36,12 @@ class HomeAuthenticationViewModel @Inject constructor(
                         HomeAuthenticationScreenState.Error(result.msg.toString())
 
                     Resource.Loading -> _authStatus.value = HomeAuthenticationScreenState.Loading
-                    is Resource.Success -> _authStatus.value = HomeAuthenticationScreenState.Success
+                    is Resource.Success -> {
+                        saveTokenUseCase(result.data)
+                        _authStatus.value = HomeAuthenticationScreenState.Success
+                    }
                 }
-            }else{
+            } else {
                 _authStatus.value = HomeAuthenticationScreenState.Error("Авторизуйтесь, пожалуйста")
             }
         }

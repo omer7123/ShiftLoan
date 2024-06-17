@@ -9,4 +9,6 @@ interface AuthenticationRepository {
     suspend fun registration(auth: AuthEntity): Resource<ResponseRegisterEntity>
     suspend fun getAuth(): AuthEntity
     suspend fun saveAuth(auth: AuthEntity)
+    suspend fun saveToken(token: String)
+    suspend fun getToken(): String
 }

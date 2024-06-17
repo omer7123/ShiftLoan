@@ -9,6 +9,7 @@ import com.example.finalproject.domain.entity.AuthEntity
 import com.example.finalproject.domain.useCase.LoginUseCase
 import com.example.finalproject.domain.useCase.RegistrationUseCase
 import com.example.finalproject.domain.useCase.SaveSharedPrefAuthUseCase
+import com.example.finalproject.domain.useCase.SaveTokenUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,6 +17,7 @@ class RegistrationViewModel @Inject constructor(
     private val registrationUseCase: RegistrationUseCase,
     private val loginUseCase: LoginUseCase,
     private val saveSharedPrefAuthUseCase: SaveSharedPrefAuthUseCase,
+    private val saveTokenUseCase: SaveTokenUseCase
 ) : ViewModel() {
 
     private val _screenState: MutableLiveData<RegistrationScreenState> =
@@ -48,6 +50,7 @@ class RegistrationViewModel @Inject constructor(
             Resource.Loading -> _screenState.value = RegistrationScreenState.Loading
             is Resource.Success -> {
                 saveSharedPrefAuthUseCase(auth)
+                saveTokenUseCase(result.data)
                 _screenState.value = RegistrationScreenState.Success
             }
         }
