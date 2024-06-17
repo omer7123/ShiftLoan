@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,6 +102,7 @@ class AuthorizationFragment : Fragment() {
 
     private fun renderError(msg: String) {
         requireContext().showToast(msg)
+        Log.e("Er", msg)
         binding.content.expand()
         binding.progressCircular.isVisible = false
     }

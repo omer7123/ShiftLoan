@@ -15,6 +15,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -38,7 +39,23 @@ class DataModule {
 
     @Reusable
     @Provides
-    fun provideOkHttpClient(tokenInterceptor: TokenInterceptor): OkHttpClient {
+    @Named("WithoutAuth")
+    fun provideOkHttpClientWithoutAuth(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+        return OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .addInterceptor(loggingInterceptor)
+            .build()
+    }
+
+    @Reusable
+    @Provides
+    @Named("WithAuth")
+    fun provideOkHttpClientWithAuth(tokenInterceptor: TokenInterceptor): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -53,7 +70,30 @@ class DataModule {
 
     @Reusable
     @Provides
-    fun provideRetrofitClient(json: Json, apiUrlProvider: ApiUrlProvider, okHttpClient: OkHttpClient): Retrofit {
+    @Named("WithAuth")
+    fun provideRetrofitClientWithAuth(
+        json: Json,
+        apiUrlProvider: ApiUrlProvider,
+        @Named("WithAuth") okHttpClient: OkHttpClient
+    ): Retrofit {
+        val contentType = "application/json".toMediaType()
+
+        return Retrofit.Builder()
+            .baseUrl(apiUrlProvider.url)
+            .client(okHttpClient)
+            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(json.asConverterFactory(contentType))
+            .build()
+    }
+
+    @Reusable
+    @Provides
+    @Named("WithoutAuth")
+    fun provideRetrofitClientWithoutAuth(
+        json: Json,
+        apiUrlProvider: ApiUrlProvider,
+        @Named("WithoutAuth") okHttpClient: OkHttpClient
+    ): Retrofit {
         val contentType = "application/json".toMediaType()
 
         return Retrofit.Builder()
@@ -66,13 +106,13 @@ class DataModule {
 
     @Provides
     @Singleton
-    fun provideAuthenticationService(retrofit: Retrofit): AuthenticationService {
+    fun provideAuthenticationService(@Named("WithoutAuth") retrofit: Retrofit): AuthenticationService {
         return retrofit.create(AuthenticationService::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideLoanService(retrofit: Retrofit): LoanService {
+    fun provideLoanService(@Named("WithAuth") retrofit: Retrofit): LoanService {
         return retrofit.create(LoanService::class.java)
     }
 }

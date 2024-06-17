@@ -8,7 +8,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 abstract class BaseDataSource {
-    data class ErrorResponse(val detail: String)
+    data class ErrorResponse(val detail: String?)
 
     protected suspend fun <T : Any> getResult(call: suspend () -> Response<T>): Resource<T> {
         try {
@@ -42,7 +42,7 @@ abstract class BaseDataSource {
             return Resource.Error("Нет соединения с интернетом", null)
         }
         catch (e: Exception) {
-            return Resource.Error("Произошла непредвиденная ошиба", null)
+            return Resource.Error("Произошла непредвиденная ошибка", null)
         }
     }
 }

@@ -68,6 +68,10 @@ class HomeFragment : Fragment() {
 
     private fun renderContent(state: HomeScreenState.Content) {
         Log.e("State", state.conditions.toString())
+        val conditions = "Под ${state.conditions.percent}% на ${state.conditions.period} дней"
+        binding.conditionsTv.text = conditions
+        binding.sumSb.max = state.conditions.maxAmount
+        binding.maxTv.text = "${state.conditions.maxAmount} ₽"
 //        binding.validationTv.text = state.validationMsg
 //        binding.sumEt.setText(state.sumLoan)
     }
