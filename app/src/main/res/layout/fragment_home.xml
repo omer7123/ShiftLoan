@@ -1,13 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bg_secondary"
     tools:context=".ui.homeFragment.HomeFragment">
 
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/bg_primary">
 
-</FrameLayout>
+        <TextView
+            style="@style/Headline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home" />
+
+        <ImageView
+            android:id="@+id/question_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="18dp"
+            android:src="@drawable/ic_question" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/banner_container"
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/permanent_primary"
+        android:elevation="0dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/banner_title_1_tv"
+                style="@style/Headline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="27dp"
+                android:text="Получите займ"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/banner_title_2_tv"
+                style="@style/Headline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="в 2 клика"
+                app:layout_constraintStart_toStartOf="@id/banner_title_1_tv"
+                app:layout_constraintTop_toBottomOf="@id/banner_title_1_tv" />
+
+            <TextView
+                android:id="@+id/banner_describe_1"
+                style="@style/Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:text="Деньги наличными"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/banner_title_2_tv" />
+
+            <TextView
+                style="@style/Body2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="на любые цели"
+                app:layout_constraintStart_toStartOf="@id/banner_describe_1"
+                app:layout_constraintTop_toBottomOf="@id/banner_describe_1" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/loan_amount_tv"
+        style="@style/Headline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/loan_amount"
+        app:layout_constraintStart_toStartOf="@id/banner_container"
+        app:layout_constraintTop_toBottomOf="@id/banner_container" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="255dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@id/loan_amount_tv">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/sum_et"
+                style="@style/Headline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:background="@null"
+                android:imeOptions="actionDone"
+                android:inputType="number"
+                android:hint=" "
+                android:text="7000"
+                android:focusableInTouchMode="false"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/valute_tv"
+                style="@style/Headline2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="₽"
+                app:layout_constraintStart_toEndOf="@id/sum_et"
+                app:layout_constraintTop_toTopOf="@id/sum_et" />
+
+            <ImageView
+                android:id="@+id/edit_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:src="@drawable/ic_edit"
+                app:layout_constraintBottom_toBottomOf="@id/valute_tv"
+                app:layout_constraintStart_toEndOf="@id/valute_tv"
+                app:layout_constraintTop_toTopOf="@id/valute_tv" />
+
+            <SeekBar
+                android:id="@+id/sum_sb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:progress="70"
+                android:thumb="@drawable/bg_thumb"
+                android:progressDrawable="@drawable/bg_seekbar"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingVertical="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_iv" />
+
+            <TextView
+                android:text="0 ₽"
+                style="@style/Caption"
+                app:layout_constraintStart_toStartOf="@id/sum_et"
+                app:layout_constraintTop_toBottomOf="@id/sum_sb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -43,7 +43,7 @@
     </style>
 
     <style name="BottomNavigationViewItemActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">#0D202030</item>
+        <item name="android:color">@null</item>
         <item name="android:width">55dp</item>
         <item name="itemTextColor">@color/permanent_primary_dark</item>
         <item name="iconTint">@color/permanent_primary_dark</item>

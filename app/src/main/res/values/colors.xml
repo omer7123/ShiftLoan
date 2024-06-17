@@ -28,5 +28,5 @@
     <color name="icon_disable">#A1A5AA</color>
     <color name="icon_invert">#FFFFFF</color>
 
-
+    <color name="text_selected">#C0DEFB</color>
 </resources>

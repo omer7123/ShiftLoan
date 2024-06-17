@@ -22,4 +22,6 @@
     <string name="board_second_describe_1">После нажатия «Оформить займ» заявка поступит в банк</string>
     <string name="board_second_describe_2">Когда займ будет одобрен, подойдите с паспортом в отделение банка для подписания договора</string>
     <string name="empty" />
+    <string name="loan_amount">Сумма займа</string>
+
 </resources>

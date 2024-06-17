@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:left="0dp"
+        android:right="0dp">
+        <shape android:shape="oval">
+
+            <solid android:color="@color/bg_invert" />
+            <size
+                android:width="24dp"
+                android:height="24dp" />
+        </shape>
+    </item>
+
+    <item
+        android:height="8dp"
+        android:gravity="center_vertical|start"
+        android:start="5dp"
+        android:drawable="@drawable/ic_small_arrow_left" />
+
+    <item
+        android:height="8dp"
+        android:gravity="center_vertical|end"
+        android:end="5dp"
+        android:drawable="@drawable/ic_small_arrow_right" />
+</layer-list>

@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initNavControllerWithBottomNav()
+        setupNavigationListener()
         initDestination()
     }
 
@@ -29,6 +30,8 @@ class MainActivity : AppCompatActivity() {
             if (destination.id == R.id.homeAuthenticationFragment){
 //                window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
                 binding.bottomNav.visibility = View.GONE
+            } else {
+                binding.bottomNav.visibility = View.VISIBLE
             }
 //            if (destination.id == R.id.registerFragment ||
 //                destination.id == R.id.authFragment
@@ -38,6 +41,27 @@ class MainActivity : AppCompatActivity() {
 //            } else {
 //                binding.navView.visibility = View.VISIBLE
 //            }
+        }
+    }
+
+    private fun setupNavigationListener() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+
+            when (item.itemId) {
+                R.id.home_item -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+
+                R.id.menu_item -> {
+//                    navController.navigate(R.id.fragment_exercises)
+                    true
+                }
+
+                else -> {
+                    false
+                }
+            }
         }
     }
 
