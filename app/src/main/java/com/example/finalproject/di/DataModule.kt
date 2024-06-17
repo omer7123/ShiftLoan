@@ -1,6 +1,8 @@
 package com.example.finalproject.di
 
-import com.example.finalproject.data.remote.AuthenticationService
+import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
+import com.example.finalproject.data.remote.authentication.AuthenticationService
+import com.example.finalproject.data.remote.interceptor.TokenInterceptor
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -27,9 +29,15 @@ class DataModule {
     @Provides
     fun provideApiUrl(impl: ApiUrlProviderImpl): ApiUrlProvider = impl
 
+    @Provides
+    @Singleton
+    fun provideAuthInterceptor(authDataSource: AuthenticationSharedPrefDataSource): TokenInterceptor {
+        return TokenInterceptor(authDataSource)
+    }
+
     @Reusable
     @Provides
-    fun provideOkHttpClient(): OkHttpClient {
+    fun provideOkHttpClient(tokenInterceptor: TokenInterceptor): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -38,6 +46,7 @@ class DataModule {
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(tokenInterceptor)
             .build()
     }
 

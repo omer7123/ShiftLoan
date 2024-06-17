@@ -2,8 +2,8 @@ package com.example.finalproject.di
 
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSourceImpl
-import com.example.finalproject.data.remote.AuthenticationDataSource
-import com.example.finalproject.data.remote.AuthenticationDataSourceImpl
+import com.example.finalproject.data.remote.authentication.AuthenticationDataSource
+import com.example.finalproject.data.remote.authentication.AuthenticationDataSourceImpl
 import dagger.Binds
 import dagger.Module
 import javax.inject.Singleton

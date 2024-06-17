@@ -3,6 +3,7 @@ package com.example.finalproject.di
 import androidx.lifecycle.ViewModel
 import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
+import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
@@ -23,4 +24,8 @@ interface PresentationModule {
     @Binds
     @[IntoMap ClassKey(HomeAuthenticationViewModel::class)]
     fun provideHomeAuthenticationViewModel(homeAuthenticationViewModel: HomeAuthenticationViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ClassKey(HomeViewModel::class)]
+    fun provideHomeViewModel(homeViewModel: HomeViewModel): ViewModel
 }

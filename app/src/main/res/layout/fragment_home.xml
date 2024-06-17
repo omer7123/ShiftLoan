@@ -113,11 +113,11 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:background="@null"
+                android:focusableInTouchMode="false"
+                android:hint=" "
                 android:imeOptions="actionDone"
                 android:inputType="number"
-                android:hint=" "
                 android:text="7000"
-                android:focusableInTouchMode="false"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,27 +141,91 @@
                 app:layout_constraintStart_toEndOf="@id/valute_tv"
                 app:layout_constraintTop_toTopOf="@id/valute_tv" />
 
+            <TextView
+                android:id="@+id/validation_tv"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:textColor="@color/indicator_error"
+                app:layout_constraintBottom_toBottomOf="@id/edit_iv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/edit_iv"
+                tools:text="Минимум 1000" />
+
             <SeekBar
                 android:id="@+id/sum_sb"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:indeterminate="false"
-                android:progress="70"
-                android:thumb="@drawable/bg_thumb"
-                android:progressDrawable="@drawable/bg_seekbar"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:max="10000"
                 android:paddingVertical="12dp"
+                android:progress="7000"
+                android:progressDrawable="@drawable/bg_seekbar"
+                android:thumb="@drawable/bg_thumb"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/edit_iv" />
 
             <TextView
-                android:text="0 ₽"
+                android:id="@+id/min_tv"
                 style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0 ₽"
+                android:textColor="@color/font_secondary"
                 app:layout_constraintStart_toStartOf="@id/sum_et"
-                app:layout_constraintTop_toBottomOf="@id/sum_sb"
+                app:layout_constraintTop_toBottomOf="@id/sum_sb" />
+
+            <TextView
+                android:id="@+id/max_tv"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="10 000 ₽"
+                android:textColor="@color/font_secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sum_sb" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="16dp"
+                android:background="@color/bg_secondary"
+                app:layout_constraintTop_toBottomOf="@id/max_tv" />
+
+            <TextView
+                android:id="@+id/conditions_title"
+                style="@style/Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Условия"
+                android:textColor="@color/font_secondary"
+                android:layout_margin="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line" />
+
+            <TextView
+                android:id="@+id/conditions_tv"
+                app:layout_constraintTop_toBottomOf="@id/conditions_title"
+                tools:text="Под 30% на 12 дней"
+                style="@style/Body"
+                android:layout_marginTop="2dp"
+                app:layout_constraintStart_toStartOf="@id/conditions_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                app:layout_constraintTop_toBottomOf="@id/conditions_tv"
+                android:layout_margin="16dp"
+                android:text="Продолжить"
+                style="@style/ButtonPrimaryActive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

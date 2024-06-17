@@ -1,4 +1,4 @@
-package com.example.finalproject.data.remote
+package com.example.finalproject.data.remote.authentication
 
 import com.example.finalproject.core.BaseDataSource
 import com.example.finalproject.core.Resource

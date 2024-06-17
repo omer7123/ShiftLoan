@@ -3,7 +3,7 @@ package com.example.finalproject.data.repository
 import com.example.finalproject.core.Resource
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
 import com.example.finalproject.data.model.AuthModel
-import com.example.finalproject.data.remote.AuthenticationDataSource
+import com.example.finalproject.data.remote.authentication.AuthenticationDataSource
 import com.example.finalproject.domain.entity.AuthEntity
 import com.example.finalproject.domain.entity.ResponseRegisterEntity
 import com.example.finalproject.domain.repository.AuthenticationRepository
