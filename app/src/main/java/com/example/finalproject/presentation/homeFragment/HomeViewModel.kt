@@ -3,14 +3,31 @@ package com.example.finalproject.presentation.homeFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.finalproject.core.Resource
+import com.example.finalproject.domain.useCase.GetLoanConditionsUseCase
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(private val getLoanConditionsUseCase: GetLoanConditionsUseCase) :
+    ViewModel() {
 
     private val _screenState: MutableLiveData<HomeScreenState> =
         MutableLiveData(HomeScreenState.Initial)
     val screenState: LiveData<HomeScreenState> = _screenState
 
+    fun getLoanConditions() {
+        viewModelScope.launch {
+            when (val result = getLoanConditionsUseCase()) {
+                is Resource.Error -> _screenState.value =
+                    HomeScreenState.Error(result.msg.toString())
+
+                Resource.Loading -> {}
+                is Resource.Success -> _screenState.value =
+                    HomeScreenState.Content("", "7000", null, result.data)
+            }
+        }
+    }
 //    fun checkValue(value: String) {
 //        val number = value.toIntOrNull()
 //        val message = if (number!! > 10000 || number < 1000) {

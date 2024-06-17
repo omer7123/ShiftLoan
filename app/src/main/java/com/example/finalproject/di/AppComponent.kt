@@ -14,6 +14,7 @@ interface AppComponent {
     fun inject(activity: MainActivity)
     fun apiUrlProvider(): ApiUrlProvider
     fun authenticationComponent(): AuthenticationComponent.Factory
+    fun loanComponent(): LoanComponent.Factory
 
     @Component.Factory
     interface Factory {

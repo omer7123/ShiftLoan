@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +36,7 @@ class HomeFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireContext().getAppComponent().authenticationComponent().create().inject(this)
+        requireContext().getAppComponent().loanComponent().create().inject(this)
     }
 
     override fun onCreateView(
@@ -52,6 +53,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getLoanConditions()
         initView()
         initListener()
     }
@@ -65,6 +67,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderContent(state: HomeScreenState.Content) {
+        Log.e("State", state.conditions.toString())
 //        binding.validationTv.text = state.validationMsg
 //        binding.sumEt.setText(state.sumLoan)
     }

@@ -3,6 +3,7 @@ package com.example.finalproject.di
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
 import com.example.finalproject.data.remote.authentication.AuthenticationService
 import com.example.finalproject.data.remote.interceptor.TokenInterceptor
+import com.example.finalproject.data.remote.loan.LoanService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
@@ -67,5 +68,11 @@ class DataModule {
     @Singleton
     fun provideAuthenticationService(retrofit: Retrofit): AuthenticationService {
         return retrofit.create(AuthenticationService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoanService(retrofit: Retrofit): LoanService {
+        return retrofit.create(LoanService::class.java)
     }
 }
