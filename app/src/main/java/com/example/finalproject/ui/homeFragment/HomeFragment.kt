@@ -2,8 +2,6 @@ package com.example.finalproject.ui.homeFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +48,6 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLoanConditions()
@@ -67,13 +64,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderContent(state: HomeScreenState.Content) {
-        Log.e("State", state.conditions.toString())
+        Log.e("State", state.sumLoan)
         val conditions = "Под ${state.conditions.percent}% на ${state.conditions.period} дней"
         binding.conditionsTv.text = conditions
         binding.sumSb.max = state.conditions.maxAmount
         binding.maxTv.text = "${state.conditions.maxAmount} ₽"
-//        binding.validationTv.text = state.validationMsg
-//        binding.sumEt.setText(state.sumLoan)
+
+        if (state.sumLoan.toInt() < 1000) {
+            binding.validationTv.text = "Минимум 1 000 ₽"
+        } else if (state.sumLoan.toInt() > state.conditions.maxAmount) {
+            binding.validationTv.text = "Максимум ${state.conditions.maxAmount} ₽"
+        } else {
+            binding.validationTv.text = ""
+        }
+        binding.sumEt.setText(state.sumLoan)
     }
 
     private fun initView() {
@@ -94,8 +98,13 @@ class HomeFragment : Fragment() {
 
                 imm.hideSoftInputFromWindow(binding.sumEt.windowToken, 0)
                 val value = binding.sumEt.text.toString()
-                binding.sumSb.progress = value.toInt()
 
+                if (value.toInt() <= binding.sumSb.max)
+                    binding.sumSb.progress = value.toInt()
+                else {
+                    binding.sumSb.progress = binding.sumSb.max
+                }
+                viewModel.setValueLoan(binding.sumEt.text.toString())
                 true
             } else {
                 false
@@ -117,36 +126,20 @@ class HomeFragment : Fragment() {
 
         binding.sumSb.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.sumEt.setText(progress.toString())
+                if (binding.sumEt.text.toString().toInt() <= seekBar!!.max) {
+                    binding.sumEt.setText(progress.toString())
+                    viewModel.setValueLoan(progress.toString())
+                }
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-
+                if (binding.sumEt.text.toString().toInt() > seekBar!!.max)
+                    viewModel.setValueLoan(seekBar.progress.toString())
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
 
             }
-        })
-
-        binding.sumEt.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().toInt() < 1000) {
-                    binding.validationTv.text = "Минимум 1 000 ₽"
-                } else if (s.toString().toInt() > 10000) {
-                    binding.validationTv.text = "Максимум 10 000 ₽"
-                } else {
-                    binding.validationTv.text = ""
-                }
-            }
-
         })
     }
 

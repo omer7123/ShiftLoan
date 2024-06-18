@@ -109,6 +109,7 @@
             <EditText
                 android:id="@+id/sum_et"
                 style="@style/Headline2"
+                android:maxLength="6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"

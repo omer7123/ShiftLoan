@@ -24,8 +24,16 @@ class HomeViewModel @Inject constructor(private val getLoanConditionsUseCase: Ge
 
                 Resource.Loading -> {}
                 is Resource.Success -> _screenState.value =
-                    HomeScreenState.Content("", "7000", null, result.data)
+                    HomeScreenState.Content("7000", null, result.data)
             }
+        }
+    }
+
+    fun setValueLoan(value: String) {
+
+        val currentState = _screenState.value
+        if (currentState is HomeScreenState.Content) {
+            _screenState.value = currentState.copy(sumLoan = value)
         }
     }
 //    fun checkValue(value: String) {
