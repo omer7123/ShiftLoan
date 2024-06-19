@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.SeekBar
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -25,6 +26,8 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding)
+
+    private val adapter = LoanAdapter()
 
     @Inject
     lateinit var viewModelFactory: MultiViewModelFactory
@@ -56,15 +59,55 @@ class HomeFragment : Fragment() {
     }
 
     private fun render(state: HomeScreenState) {
+        Log.e("State", state.toString())
         when (state) {
             is HomeScreenState.Content -> renderContent(state)
             is HomeScreenState.Error -> {}
             HomeScreenState.Initial -> {}
+            HomeScreenState.Loading -> {
+                binding.bannerShimmer.visibility = View.VISIBLE
+                binding.loanAmountShimmer.visibility = View.VISIBLE
+                binding.newLoanShimmer.visibility = View.VISIBLE
+                binding.myLoansTvShimmer.visibility = View.VISIBLE
+                binding.myLoansContainerShimmer.visibility = View.VISIBLE
+
+                binding.bannerContainer.visibility = View.INVISIBLE
+                binding.loanAmountTv.visibility = View.INVISIBLE
+                binding.newLoadContainer.visibility = View.INVISIBLE
+                binding.myLoansTv.visibility = View.INVISIBLE
+                binding.myLoansContainer.visibility = View.INVISIBLE
+
+                binding.loanEmptyTv.isVisible = false
+
+                binding.bannerShimmer.startShimmer()
+                binding.loanAmountShimmer.startShimmer()
+                binding.newLoanShimmer.startShimmer()
+                binding.myLoansTvShimmer.startShimmer()
+                binding.myLoansContainerShimmer.startShimmer()
+            }
         }
     }
 
     private fun renderContent(state: HomeScreenState.Content) {
-        Log.e("State", state.sumLoan)
+
+        binding.bannerShimmer.visibility = View.GONE
+        binding.loanAmountShimmer.visibility = View.GONE
+        binding.newLoanShimmer.visibility = View.GONE
+        binding.myLoansTvShimmer.visibility = View.GONE
+        binding.myLoansContainerShimmer.visibility = View.GONE
+
+        binding.bannerContainer.visibility = View.VISIBLE
+        binding.loanAmountTv.visibility = View.VISIBLE
+        binding.newLoadContainer.visibility = View.VISIBLE
+        binding.myLoansTv.visibility = View.VISIBLE
+        binding.myLoansContainer.visibility = View.VISIBLE
+
+        binding.bannerShimmer.stopShimmer()
+        binding.loanAmountShimmer.stopShimmer()
+        binding.newLoanShimmer.stopShimmer()
+        binding.myLoansTvShimmer.stopShimmer()
+        binding.myLoansContainerShimmer.stopShimmer()
+
         val conditions = "Под ${state.conditions.percent}% на ${state.conditions.period} дней"
         binding.conditionsTv.text = conditions
         binding.sumSb.max = state.conditions.maxAmount
@@ -78,9 +121,20 @@ class HomeFragment : Fragment() {
             binding.validationTv.text = ""
         }
         binding.sumEt.setText(state.sumLoan)
+
+        if (state.list.isNotEmpty()) {
+            binding.loanEmptyTv.isVisible = false
+            binding.myLoansContainer.isVisible = true
+            adapter.submitList(state.list)
+        } else {
+            binding.loanEmptyTv.isVisible = true
+            binding.myLoansContainer.isVisible = false
+        }
     }
 
     private fun initView() {
+        binding.loanRv.adapter = adapter
+
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         binding.editIv.setOnClickListener {
             binding.sumEt.isFocusable = true

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bg_primary">#151E2A</color>
-    <color name="bg_secondary">#F1F1F2</color>
+    <color name="bg_secondary">#313944</color>
     <color name="bg_tertiary">#363A42</color>
-    <color name="bg_disable">#363A42</color>
+    <color name="bg_disable">#2D3137</color>
     <color name="bg_invert">#F5F5F5</color>
 
-    <color name="font_primary">#3E3E3E</color>
-    <color name="font_secondary">#73787F</color>
-    <color name="font_disable">#A1A5AA</color>
+    <color name="font_primary">#FFFFFF</color>
+    <color name="font_secondary">#A1A5AA</color>
+    <color name="font_disable">#73787F</color>
     <color name="font_primary_invert">#151E2A</color>
 
     <color name="permanent_primary">#FED200</color>
     <color name="permanent_primary_light">#FFE982</color>
-    <color name="permanent_primary_dark">#F1CB16</color>
+    <color name="permanent_primary_dark">#DEB800</color>
 
-    <color name="indicator_error">#E53E3E</color>
-    <color name="indicator_positive">#19B36D</color>
+    <color name="indicator_error">#D34545</color>
+    <color name="indicator_positive">#26A169</color>
     <color name="indicator_attention">#F19916</color>
 
     <color name="border_primary">#B4B4B4</color>
@@ -25,5 +25,5 @@
     <color name="icon_primary">#FFFFFF</color>
     <color name="icon_secondary">#A1A5AA</color>
     <color name="icon_disable">#73787F</color>
-    <color name="icon_invert">#73787F</color>
+    <color name="icon_invert">#151E2A</color>
 </resources>

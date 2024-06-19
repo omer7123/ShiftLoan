@@ -42,6 +42,10 @@
         <item name="backgroundTint">@color/permanent_primary</item>
     </style>
 
+    <style name="ButtonSecondaryActive" parent="ButtonPrimaryActive">
+        <item name="backgroundTint">@color/bg_secondary</item>
+    </style>
+
     <style name="BottomNavigationViewItemActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@null</item>
         <item name="android:width">55dp</item>

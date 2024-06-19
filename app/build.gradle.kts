@@ -70,4 +70,7 @@ dependencies {
     implementation (libs.converter.scalars)
 
     implementation (libs.androidx.security.crypto)
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
+
 }

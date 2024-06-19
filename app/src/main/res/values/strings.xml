@@ -23,5 +23,8 @@
     <string name="board_second_describe_2">Когда займ будет одобрен, подойдите с паспортом в отделение банка для подписания договора</string>
     <string name="empty" />
     <string name="loan_amount">Сумма займа</string>
+    <string name="approved">Одобрен</string>
+    <string name="under_consideration">На рассмотрении</string>
+    <string name="rejected">Отклонен</string>
 
 </resources>
