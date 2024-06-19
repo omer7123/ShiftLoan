@@ -28,10 +28,8 @@ class HomeViewModel @Inject constructor(
                 is Resource.Error -> _screenState.value =
                     HomeScreenState.Error(result.msg.toString())
 
-                Resource.Loading -> {}
+                Resource.Loading -> _screenState.value = HomeScreenState.Loading
                 is Resource.Success -> {
-//                    _screenState.value =
-//                        HomeScreenState.Content("7000", null, result.data)
                     getLoansAll(result.data)
                 }
             }
@@ -39,7 +37,6 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun getLoansAll(conditions: LoanConditionsEntity) {
-
         when (val result = getLoansAllUseCase()) {
             is Resource.Error -> _screenState.value = HomeScreenState.Error(result.msg.toString())
             Resource.Loading -> _screenState.value = HomeScreenState.Loading

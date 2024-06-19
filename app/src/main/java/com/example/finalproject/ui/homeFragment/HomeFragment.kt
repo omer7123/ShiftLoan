@@ -2,7 +2,6 @@ package com.example.finalproject.ui.homeFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import com.example.finalproject.presentation.homeFragment.HomeScreenState
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.util.getAppComponent
+import com.example.finalproject.util.showToast
 import javax.inject.Inject
 
 
@@ -59,37 +59,38 @@ class HomeFragment : Fragment() {
     }
 
     private fun render(state: HomeScreenState) {
-        Log.e("State", state.toString())
         when (state) {
             is HomeScreenState.Content -> renderContent(state)
-            is HomeScreenState.Error -> {}
+            is HomeScreenState.Error -> requireContext().showToast(state.msg)
             HomeScreenState.Initial -> {}
-            HomeScreenState.Loading -> {
-                binding.bannerShimmer.visibility = View.VISIBLE
-                binding.loanAmountShimmer.visibility = View.VISIBLE
-                binding.newLoanShimmer.visibility = View.VISIBLE
-                binding.myLoansTvShimmer.visibility = View.VISIBLE
-                binding.myLoansContainerShimmer.visibility = View.VISIBLE
+            HomeScreenState.Loading -> renderLoading()
 
-                binding.bannerContainer.visibility = View.INVISIBLE
-                binding.loanAmountTv.visibility = View.INVISIBLE
-                binding.newLoadContainer.visibility = View.INVISIBLE
-                binding.myLoansTv.visibility = View.INVISIBLE
-                binding.myLoansContainer.visibility = View.INVISIBLE
-
-                binding.loanEmptyTv.isVisible = false
-
-                binding.bannerShimmer.startShimmer()
-                binding.loanAmountShimmer.startShimmer()
-                binding.newLoanShimmer.startShimmer()
-                binding.myLoansTvShimmer.startShimmer()
-                binding.myLoansContainerShimmer.startShimmer()
-            }
         }
     }
 
-    private fun renderContent(state: HomeScreenState.Content) {
+    private fun renderLoading() {
+        binding.bannerShimmer.visibility = View.VISIBLE
+        binding.loanAmountShimmer.visibility = View.VISIBLE
+        binding.newLoanShimmer.visibility = View.VISIBLE
+        binding.myLoansTvShimmer.visibility = View.VISIBLE
+        binding.myLoansContainerShimmer.visibility = View.VISIBLE
 
+        binding.bannerContainer.visibility = View.INVISIBLE
+        binding.loanAmountTv.visibility = View.INVISIBLE
+        binding.newLoadContainer.visibility = View.INVISIBLE
+        binding.myLoansTv.visibility = View.INVISIBLE
+        binding.myLoansContainer.visibility = View.INVISIBLE
+
+        binding.loanEmptyTv.isVisible = false
+
+        binding.bannerShimmer.startShimmer()
+        binding.loanAmountShimmer.startShimmer()
+        binding.newLoanShimmer.startShimmer()
+        binding.myLoansTvShimmer.startShimmer()
+        binding.myLoansContainerShimmer.startShimmer()
+    }
+
+    private fun renderContent(state: HomeScreenState.Content) {
         binding.bannerShimmer.visibility = View.GONE
         binding.loanAmountShimmer.visibility = View.GONE
         binding.newLoanShimmer.visibility = View.GONE
