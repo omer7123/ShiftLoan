@@ -26,5 +26,16 @@
     <string name="approved">Одобрен</string>
     <string name="under_consideration">На рассмотрении</string>
     <string name="rejected">Отклонен</string>
+    <string name="my_loans">Мои займы</string>
+    <string name="minimum_1000">Минимум 1 000 ₽</string>
+    <string name="max_value_loan">Максимум %1$s ₽</string>
+    <string name="max_value_predel">%1$s ₽</string>
+    <string name="conditions_loan">Под %1$s%% на %2$s дней</string>
+    <string name="desc_loans_empty">Здесь будут отображаться Ваши активные займы</string>
+    <string name="sum_loan_def">7000</string>
+    <string name="min_sum_loan_seek">0 ₽</string>
+    <string name="conditions">Условия</string>
+    <string name="сontinue">Продолжить</string>
+    <string name="check_all">Посмотреть все</string>
 
 </resources>

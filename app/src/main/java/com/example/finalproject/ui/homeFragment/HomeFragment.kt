@@ -45,15 +45,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
+
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getLoanConditions()
+        if (viewModel.screenState.value == HomeScreenState.Initial)
+            viewModel.getLoanConditions()
         initView()
         initListener()
     }
@@ -64,7 +67,6 @@ class HomeFragment : Fragment() {
             is HomeScreenState.Error -> requireContext().showToast(state.msg)
             HomeScreenState.Initial -> {}
             HomeScreenState.Loading -> renderLoading()
-
         }
     }
 
@@ -109,19 +111,26 @@ class HomeFragment : Fragment() {
         binding.myLoansTvShimmer.stopShimmer()
         binding.myLoansContainerShimmer.stopShimmer()
 
-        val conditions = "Под ${state.conditions.percent}% на ${state.conditions.period} дней"
+        binding.sumEt.setText(state.sumLoan)
+        val conditions =
+            getString(
+                R.string.conditions_loan,
+                state.conditions.percent.toString(),
+                state.conditions.period.toString()
+            )
         binding.conditionsTv.text = conditions
         binding.sumSb.max = state.conditions.maxAmount
-        binding.maxTv.text = "${state.conditions.maxAmount} ₽"
+        binding.maxTv.text =
+            getString(R.string.max_value_predel, state.conditions.maxAmount.toString())
 
         if (state.sumLoan.toInt() < 1000) {
-            binding.validationTv.text = "Минимум 1 000 ₽"
+            binding.validationTv.text = getString(R.string.minimum_1000)
         } else if (state.sumLoan.toInt() > state.conditions.maxAmount) {
-            binding.validationTv.text = "Максимум ${state.conditions.maxAmount} ₽"
+            binding.validationTv.text =
+                getString(R.string.max_value_loan, state.conditions.maxAmount.toString())
         } else {
             binding.validationTv.text = ""
         }
-        binding.sumEt.setText(state.sumLoan)
 
         if (state.list.isNotEmpty()) {
             binding.loanEmptyTv.isVisible = false
@@ -196,6 +205,10 @@ class HomeFragment : Fragment() {
 
             }
         })
+
+        binding.checkAllBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_loansFragment)
+        }
     }
 
     override fun onDestroy() {

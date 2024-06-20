@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp">
 
@@ -31,19 +34,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="На рассмотрении"
         android:textColor="@color/indicator_attention"
-        app:layout_constraintTop_toBottomOf="@id/id_loan_tv" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/id_loan_tv"
+        tools:text="На рассмотрении" />
 
     <TextView
         android:id="@+id/date_tv"
         style="@style/Caption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="25 сентября, вс"
         android:textColor="@color/font_secondary"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/status_tv" />
+        app:layout_constraintTop_toTopOf="@id/status_tv"
+        tools:text="25 сентября, вс" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

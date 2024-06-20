@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
+import com.example.finalproject.presentation.loansFragment.LoansViewModel
 import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
@@ -28,4 +29,8 @@ interface PresentationModule {
     @Binds
     @[IntoMap ClassKey(HomeViewModel::class)]
     fun provideHomeViewModel(homeViewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ClassKey(LoansViewModel::class)]
+    fun provideLoansViewModel(loansViewModel: LoansViewModel): ViewModel
 }
