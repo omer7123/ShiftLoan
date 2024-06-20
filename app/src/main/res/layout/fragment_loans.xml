@@ -16,7 +16,7 @@
         style="@style/Headline2"
         android:navigationIcon="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Toolbar>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerSkeleton"

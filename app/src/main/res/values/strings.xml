@@ -38,6 +38,7 @@
     <string name="сontinue">Продолжить</string>
     <string name="check_all">Посмотреть все</string>
     <string name="number_of_loan">№ %1$s</string>
+    <string name="percent_data">%1$s %%</string>
     <string name="name">Имя</string>
     <string name="lastname">Фамилия</string>
     <string name="phone_number">Номер телефона</string>

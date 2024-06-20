@@ -7,4 +7,5 @@ import com.example.finalproject.data.model.LoanModel
 interface LoanDataSource {
     suspend fun getLoanConditions(): Resource<LoanConditionsModel>
     suspend fun getLoansAll(): Resource<List<LoanModel>>
+    suspend fun getLoan(id: Int): Resource<LoanModel>
 }

@@ -59,7 +59,8 @@ class LoansFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         iniView()
         initListener()
-        viewModel.getLoans()
+        if (viewModel.screenState.value == LoansScreenState.Initial)
+            viewModel.getLoans()
     }
 
     private fun initListener() {
@@ -85,6 +86,16 @@ class LoansFragment : Fragment() {
         showSkeleton(true)
     }
 
+    private fun renderError(state: LoansScreenState.Error) {
+        showSkeleton(false)
+        requireContext().showToast(state.msg)
+    }
+
+    private fun renderContent(state: LoansScreenState.Content) {
+        adapter.submitList(state.list)
+        showSkeleton(false)
+    }
+
     private fun showSkeleton(show: Boolean) {
         val inflater = LayoutInflater.from(requireContext())
 
@@ -106,16 +117,6 @@ class LoansFragment : Fragment() {
             binding.skeletonLayout.visibility = View.GONE
             binding.shimmerSkeleton.visibility = View.GONE
         }
-    }
-
-    private fun renderError(state: LoansScreenState.Error) {
-        showSkeleton(false)
-        requireContext().showToast(state.msg)
-    }
-
-    private fun renderContent(state: LoansScreenState.Content) {
-        adapter.submitList(state.list)
-        showSkeleton(false)
     }
 
     private fun getSkeletonRowCount(): Int {

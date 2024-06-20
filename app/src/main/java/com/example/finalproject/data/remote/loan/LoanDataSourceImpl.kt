@@ -21,4 +21,10 @@ class LoanDataSourceImpl @Inject constructor(private val loanService: LoanServic
             loanService.getLoansAll()
         }
     }
+
+    override suspend fun getLoan(id: Int): Resource<LoanModel> = getResult {
+        withContext(Dispatchers.IO) {
+            loanService.getLoan(id)
+        }
+    }
 }

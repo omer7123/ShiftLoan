@@ -9,12 +9,25 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/Headline2"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/bg_primary"
         app:buttonGravity="bottom|top"
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back" />
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/data_about_person_shimmer"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/skeleton"
+        app:layout_constraintBottom_toBottomOf="@id/data_about_person_container"
+        app:layout_constraintEnd_toEndOf="@id/data_about_person_container"
+        app:layout_constraintStart_toStartOf="@id/data_about_person_container"
+        app:layout_constraintTop_toTopOf="@id/data_about_person_container"
+        app:shimmer_duration="1500" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/data_about_person_container"
@@ -93,6 +106,18 @@
                 tools:text="+7 913 936-26-16" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/data_of_loan_shimmer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:background="@drawable/skeleton"
+        app:layout_constraintBottom_toBottomOf="@id/data_of_loan_container"
+        app:layout_constraintEnd_toEndOf="@id/data_of_loan_container"
+        app:layout_constraintStart_toStartOf="@id/data_of_loan_container"
+        app:layout_constraintTop_toTopOf="@id/data_of_loan_container"
+        app:shimmer_duration="1500" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/data_of_loan_container"
@@ -212,6 +237,18 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/status_shimmer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/skeleton"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/status_container"
+        app:layout_constraintEnd_toEndOf="@id/status_container"
+        app:layout_constraintStart_toStartOf="@id/status_container"
+        app:layout_constraintTop_toTopOf="@id/status_container"
+        app:shimmer_duration="1500" />
+
     <androidx.cardview.widget.CardView
         android:id="@+id/status_container"
         android:layout_width="match_parent"
@@ -237,6 +274,7 @@
                 android:textColor="@color/font_secondary" />
 
             <TextView
+                android:id="@+id/status_tv"
                 style="@style/Body2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

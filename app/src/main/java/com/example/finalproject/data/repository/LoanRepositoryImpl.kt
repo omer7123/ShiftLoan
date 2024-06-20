@@ -35,4 +35,12 @@ class LoanRepositoryImpl @Inject constructor(private val dataSource: LoanDataSou
             }
         }
     }
+
+    override suspend fun getLoan(id: Int): Resource<LoanEntity> {
+        return when (val result = dataSource.getLoan(id)) {
+            is Resource.Error -> Resource.Error(result.msg.toString(), null)
+            Resource.Loading -> Resource.Loading
+            is Resource.Success -> Resource.Success(result.data.toLoanEntity())
+        }
+    }
 }
