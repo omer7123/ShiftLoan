@@ -71,10 +71,15 @@ class HomeFragment : Fragment() {
     private fun render(state: HomeScreenState) {
         when (state) {
             is HomeScreenState.Content -> renderContent(state)
-            is HomeScreenState.Error -> requireContext().showToast(state.msg)
+            is HomeScreenState.Error -> renderError(state)
             HomeScreenState.Initial -> {}
             HomeScreenState.Loading -> renderLoading()
         }
+    }
+
+    private fun renderError(state: HomeScreenState.Error) {
+        stopShimmer()
+        requireContext().showToast(state.msg)
     }
 
     private fun renderLoading() {
@@ -100,23 +105,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun renderContent(state: HomeScreenState.Content) {
-        binding.bannerShimmer.visibility = View.GONE
-        binding.loanAmountShimmer.visibility = View.GONE
-        binding.newLoanShimmer.visibility = View.GONE
-        binding.myLoansTvShimmer.visibility = View.GONE
-        binding.myLoansContainerShimmer.visibility = View.GONE
-
-        binding.bannerContainer.visibility = View.VISIBLE
-        binding.loanAmountTv.visibility = View.VISIBLE
-        binding.newLoadContainer.visibility = View.VISIBLE
-        binding.myLoansTv.visibility = View.VISIBLE
-        binding.myLoansContainer.visibility = View.VISIBLE
-
-        binding.bannerShimmer.stopShimmer()
-        binding.loanAmountShimmer.stopShimmer()
-        binding.newLoanShimmer.stopShimmer()
-        binding.myLoansTvShimmer.stopShimmer()
-        binding.myLoansContainerShimmer.stopShimmer()
+        stopShimmer()
 
         binding.sumEt.setText(state.sumLoan)
         val conditions =
@@ -216,6 +205,26 @@ class HomeFragment : Fragment() {
         binding.checkAllBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_loansFragment)
         }
+    }
+
+    private fun stopShimmer() {
+        binding.bannerShimmer.visibility = View.GONE
+        binding.loanAmountShimmer.visibility = View.GONE
+        binding.newLoanShimmer.visibility = View.GONE
+        binding.myLoansTvShimmer.visibility = View.GONE
+        binding.myLoansContainerShimmer.visibility = View.GONE
+
+        binding.bannerContainer.visibility = View.VISIBLE
+        binding.loanAmountTv.visibility = View.VISIBLE
+        binding.newLoadContainer.visibility = View.VISIBLE
+        binding.myLoansTv.visibility = View.VISIBLE
+        binding.myLoansContainer.visibility = View.VISIBLE
+
+        binding.bannerShimmer.stopShimmer()
+        binding.loanAmountShimmer.stopShimmer()
+        binding.newLoanShimmer.stopShimmer()
+        binding.myLoansTvShimmer.stopShimmer()
+        binding.myLoansContainerShimmer.stopShimmer()
     }
 
     override fun onDestroy() {

@@ -2,7 +2,6 @@ package com.example.finalproject.ui.loansFragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -102,7 +101,6 @@ class LoansFragment : Fragment() {
         if (show) {
             binding.skeletonLayout.removeAllViews()
             val skeletonRows = getSkeletonRowCount()
-            Log.e("Fsfd", skeletonRows.toString())
             for (i in 0 until skeletonRows) {
                 val rowLayout =
                     inflater.inflate(R.layout.item_skeleton_loan, binding.skeletonLayout, false)
