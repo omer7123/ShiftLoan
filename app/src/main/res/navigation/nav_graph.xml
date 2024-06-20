@@ -55,10 +55,22 @@
         <action
             android:id="@+id/action_homeFragment_to_loansFragment"
             app:destination="@id/loansFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_loanDetailFragment"
+            app:destination="@id/loanDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loansFragment"
         android:name="com.example.finalproject.ui.loansFragment.LoansFragment"
         android:label="fragment_loans"
-        tools:layout="@layout/fragment_loans" />
+        tools:layout="@layout/fragment_loans">
+        <action
+            android:id="@+id/action_loansFragment_to_loanDetailFragment"
+            app:destination="@id/loanDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loanDetailFragment"
+        android:name="com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment"
+        android:label="fragment_loan_detail"
+        tools:layout="@layout/fragment_loan_detail" />
 </navigation>

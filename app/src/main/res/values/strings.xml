@@ -37,5 +37,16 @@
     <string name="conditions">Условия</string>
     <string name="сontinue">Продолжить</string>
     <string name="check_all">Посмотреть все</string>
+    <string name="number_of_loan">№ %1$s</string>
+    <string name="name">Имя</string>
+    <string name="lastname">Фамилия</string>
+    <string name="phone_number">Номер телефона</string>
+    <string name="number_of_loan_title">Номер займа</string>
+    <string name="issue_date">Дата оформления</string>
+    <string name="period_title">Период (дней)</string>
+    <string name="percent">Процент</string>
+    <string name="sum">Сумма</string>
+    <string name="status">Статус</string>
+    <string name="detail_desc"><![CDATA[Когда займ примет статус «Одобрен», Вам нужно будет подойти с паспортом в отделение банка для подписания договора и получить деньги]]></string>
 
 </resources>

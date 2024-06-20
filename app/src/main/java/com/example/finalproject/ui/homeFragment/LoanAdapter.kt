@@ -13,12 +13,16 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Locale
 
-class LoanAdapter : ListAdapter<LoanEntity, LoanAdapter.ViewHolder>(LoanDiffCallback()) {
+class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
+    ListAdapter<LoanEntity, LoanAdapter.ViewHolder>(LoanDiffCallback()) {
     inner class ViewHolder(private val binding: ItemLoanBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(item: LoanEntity) {
             val context = binding.root.context
 
+            binding.root.setOnClickListener {
+                onItemClick(item.id)
+            }
             when (item.state) {
                 "APPROVED" -> {
                     binding.statusTv.setTextColor(
@@ -50,8 +54,9 @@ class LoanAdapter : ListAdapter<LoanEntity, LoanAdapter.ViewHolder>(LoanDiffCall
                     binding.statusTv.text = context.getString(R.string.rejected)
                 }
             }
-            binding.idLoanTv.text = "№ ${item.id}"
-            binding.sumTv.text = "${item.amount.toInt()} ₽"
+            binding.idLoanTv.text = context.getString(R.string.number_of_loan, item.id.toString())
+            binding.sumTv.text =
+                context.getString(R.string.max_value_predel, item.amount.toInt().toString())
             binding.dateTv.text = formatDate(item.date)
         }
     }

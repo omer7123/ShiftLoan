@@ -17,6 +17,7 @@ import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.presentation.homeFragment.HomeScreenState
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
 import javax.inject.Inject
@@ -27,7 +28,13 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val adapter = LoanAdapter()
+    private val adapter = LoanAdapter(this::clickListener)
+
+    private fun clickListener(id: Int) {
+        val bundle = Bundle()
+        bundle.putInt(LoanDetailFragment.ID_KEY, id)
+        findNavController().navigate(R.id.action_homeFragment_to_loanDetailFragment, bundle)
+    }
 
     @Inject
     lateinit var viewModelFactory: MultiViewModelFactory

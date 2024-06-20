@@ -15,6 +15,7 @@ import com.example.finalproject.presentation.loansFragment.LoansScreenState
 import com.example.finalproject.presentation.loansFragment.LoansViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.ui.homeFragment.LoanAdapter
+import com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
 import javax.inject.Inject
@@ -24,7 +25,13 @@ class LoansFragment : Fragment() {
     private var _binding: FragmentLoansBinding? = null
     private val binding get() = requireNotNull(_binding)
 
-    private val adapter = LoanAdapter()
+    private val adapter = LoanAdapter(this::clickListener)
+
+    private fun clickListener(id: Int) {
+        val bundle = Bundle()
+        bundle.putInt(LoanDetailFragment.ID_KEY, id)
+        findNavController().navigate(R.id.action_loansFragment_to_loanDetailFragment, bundle)
+    }
 
     @Inject
     lateinit var viewModelFactory: MultiViewModelFactory
