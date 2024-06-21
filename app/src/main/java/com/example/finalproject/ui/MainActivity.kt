@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(), NavbarHider {
 
     }
 
-
     private fun setupNavigationListener() {
         binding.bottomNav.setOnItemSelectedListener { item ->
             if (item.itemId == R.id.homeFragment) {

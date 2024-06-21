@@ -30,11 +30,18 @@ class MenuFragment : Fragment() {
     }
 
     private fun initListener() {
+
+        binding.questionIv.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_boardFragment)
+        }
         binding.myLoansLayout.content.setOnClickListener {
             findNavController().navigate(R.id.action_menuFragment_to_loansFragment)
         }
         binding.offersLayout.content.setOnClickListener {
             findNavController().navigate(R.id.specialOfferFragment)
+        }
+        binding.bankBranchesLayout.content.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_addressOfBankFragment)
         }
     }
 

@@ -84,6 +84,12 @@
         <action
             android:id="@+id/action_menuFragment_to_specialOfferFragment"
             app:destination="@id/specialOfferFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_addressOfBankFragment"
+            app:destination="@id/addressOfBankFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_boardFragment"
+            app:destination="@id/boardFragment" />
     </fragment>
     <fragment
         android:id="@+id/specialOfferFragment"
