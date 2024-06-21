@@ -77,7 +77,7 @@ class BoardFragment : Fragment() {
             }
         }
 
-        binding.closeIv.setOnClickListener {
+        binding.toolbar.setNavigationOnClickListener {
             findNavController().navigate(R.id.action_boardFragment_to_homeFragment)
         }
     }

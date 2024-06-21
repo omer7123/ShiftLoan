@@ -11,9 +11,8 @@
         android:id="@+id/illustration_iv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        tools:src="@drawable/ic_illuctration"
-        app:layout_constraintTop_toBottomOf="@id/close_iv" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_illuctration" />
 
     <TextView
         android:id="@+id/title_tv"

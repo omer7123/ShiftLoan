@@ -1,7 +1,9 @@
 package com.example.finalproject.ui.homeFragment
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -24,7 +26,7 @@ class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
                 onItemClick(item.id)
             }
             when (item.state) {
-                "APPROVED" -> {
+                APPROVED -> {
                     binding.statusTv.setTextColor(
                         ContextCompat.getColor(
                             context,
@@ -34,7 +36,7 @@ class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
                     binding.statusTv.text = context.getString(R.string.approved)
                 }
 
-                "REGISTERED" -> {
+                REGISTERED -> {
                     binding.statusTv.setTextColor(
                         ContextCompat.getColor(
                             context,
@@ -44,7 +46,7 @@ class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
                     binding.statusTv.text = context.getString(R.string.under_consideration)
                 }
 
-                "REJECTED" -> {
+                REJECTED -> {
                     binding.statusTv.setTextColor(
                         ContextCompat.getColor(
                             context,
@@ -70,16 +72,20 @@ class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
         holder.onBind(getItem(position))
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     fun formatDate(dateString: String): String {
         val inputFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-
         val date = ZonedDateTime.parse(dateString, inputFormatter)
-
         val outputFormatter = DateTimeFormatter.ofPattern("d MMMM, EEEE", Locale.getDefault())
 
         return date.format(outputFormatter)
     }
 
+    companion object {
+        const val APPROVED = "APPROVED"
+        const val REGISTERED = "REGISTERED"
+        const val REJECTED = "REJECTED"
+    }
 }
 
 class LoanDiffCallback : DiffUtil.ItemCallback<LoanEntity>() {
