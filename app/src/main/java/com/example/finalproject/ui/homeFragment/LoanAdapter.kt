@@ -19,6 +19,7 @@ class LoanAdapter(val onItemClick: (id: Int) -> Unit) :
     ListAdapter<LoanEntity, LoanAdapter.ViewHolder>(LoanDiffCallback()) {
     inner class ViewHolder(private val binding: ItemLoanBinding) :
         RecyclerView.ViewHolder(binding.root) {
+        @RequiresApi(Build.VERSION_CODES.O)
         fun onBind(item: LoanEntity) {
             val context = binding.root.context
 

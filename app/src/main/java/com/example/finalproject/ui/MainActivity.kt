@@ -1,15 +1,15 @@
 package com.example.finalproject.ui
 
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavbarHider {
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = requireNotNull(_binding)
@@ -21,46 +21,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initNavControllerWithBottomNav()
         setupNavigationListener()
-        initDestination()
+
     }
 
-    private fun initDestination() {
-        navController.addOnDestinationChangedListener { navController, destination, arguments ->
-
-            if (destination.id == R.id.homeAuthenticationFragment){
-//                window.statusBarColor = ContextCompat.getColor(this, R.color.bg_splash)
-                binding.bottomNav.visibility = View.GONE
-            } else {
-                binding.bottomNav.visibility = View.VISIBLE
-            }
-//            if (destination.id == R.id.registerFragment ||
-//                destination.id == R.id.authFragment
-//
-//            ) {
-//                binding.navView.visibility = View.GONE
-//            } else {
-//                binding.navView.visibility = View.VISIBLE
-//            }
-        }
-    }
 
     private fun setupNavigationListener() {
         binding.bottomNav.setOnItemSelectedListener { item ->
+            if (item.itemId == R.id.homeFragment) {
+                val currentDestination = navController.currentDestination
+                if (currentDestination?.id == R.id.homeFragment) {
 
-            when (item.itemId) {
-                R.id.home_item -> {
-                    navController.navigate(R.id.homeFragment)
-                    true
+                    return@setOnItemSelectedListener false
                 }
+            }
+            NavigationUI.onNavDestinationSelected(item, navController)
+        }
 
-                R.id.menu_item -> {
-//                    navController.navigate(R.id.fragment_exercises)
-                    true
-                }
-
-                else -> {
-                    false
-                }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.homeFragment -> setActualItem(R.id.homeFragment)
+                R.id.menuFragment -> setActualItem(R.id.menuFragment)
             }
         }
     }
@@ -71,4 +51,20 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bottomNav, navController)
     }
+
+    private fun setActualItem(id: Int) {
+        if (binding.bottomNav.selectedItemId != id)
+            binding.bottomNav.selectedItemId = id
+    }
+
+    override fun setNavbarVisibility(it: Boolean) {
+        binding.bottomNav.isVisible = it
+    }
+
+
+}
+
+interface NavbarHider {
+    fun setNavbarVisibility(it: Boolean)
+
 }

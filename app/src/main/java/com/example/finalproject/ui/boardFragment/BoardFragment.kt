@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentBoardBinding
+import com.example.finalproject.ui.NavbarHider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -19,11 +20,19 @@ class BoardFragment : Fragment() {
     private var _binding: FragmentBoardBinding? = null
     private val binding get() = requireNotNull(_binding)
 
+    private var navbarHider: NavbarHider? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBoardBinding.inflate(layoutInflater)
+
+        if (context is NavbarHider) {
+            navbarHider = context as NavbarHider
+            navbarHider!!.setNavbarVisibility(false)
+        }
+
         return binding.root
     }
 

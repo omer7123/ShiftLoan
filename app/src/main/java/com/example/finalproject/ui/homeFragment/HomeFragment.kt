@@ -17,6 +17,7 @@ import com.example.finalproject.databinding.FragmentHomeBinding
 import com.example.finalproject.presentation.homeFragment.HomeScreenState
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.ui.NavbarHider
 import com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
@@ -30,17 +31,13 @@ class HomeFragment : Fragment() {
 
     private val adapter = LoanAdapter(this::clickListener)
 
-    private fun clickListener(id: Int) {
-        val bundle = Bundle()
-        bundle.putInt(LoanDetailFragment.ID_KEY, id)
-        findNavController().navigate(R.id.action_homeFragment_to_loanDetailFragment, bundle)
-    }
-
     @Inject
     lateinit var viewModelFactory: MultiViewModelFactory
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
     }
+
+    private var navbarHider: NavbarHider? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -52,6 +49,15 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
+
+//        if (activity is NavbarHider) {
+//            (activity as NavbarHider).setActualItem(R.id.homeFragment)
+//        }
+
+        if (context is NavbarHider) {
+            navbarHider = context as NavbarHider
+            navbarHider!!.setNavbarVisibility(true)
+        }
 
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             render(state)
@@ -225,6 +231,12 @@ class HomeFragment : Fragment() {
         binding.newLoanShimmer.stopShimmer()
         binding.myLoansTvShimmer.stopShimmer()
         binding.myLoansContainerShimmer.stopShimmer()
+    }
+
+    private fun clickListener(id: Int) {
+        val bundle = Bundle()
+        bundle.putInt(LoanDetailFragment.ID_KEY, id)
+        findNavController().navigate(R.id.action_homeFragment_to_loanDetailFragment, bundle)
     }
 
     override fun onDestroy() {

@@ -14,6 +14,7 @@ import com.example.finalproject.databinding.FragmentHomeAuthenticationBinding
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationScreenState
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.ui.NavbarHider
 import com.example.finalproject.ui.authFragment.AuthenticationFragment
 import com.example.finalproject.util.getAppComponent
 import javax.inject.Inject
@@ -30,6 +31,8 @@ class HomeAuthenticationFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[HomeAuthenticationViewModel::class.java]
     }
 
+    private var navbarHider: NavbarHider? = null
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().getAppComponent().authenticationComponent().create().inject(this)
@@ -42,6 +45,11 @@ class HomeAuthenticationFragment : Fragment() {
         _binding = FragmentHomeAuthenticationBinding.inflate(layoutInflater)
         viewModel.authStatus.observe(viewLifecycleOwner) { status ->
             render(status)
+        }
+
+        if (context is NavbarHider) {
+            navbarHider = context as NavbarHider
+            navbarHider!!.setNavbarVisibility(false)
         }
 
         viewModel.auth()

@@ -44,7 +44,7 @@
         <action
             android:id="@+id/action_boardFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/boardFragment"
+            app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -73,4 +73,36 @@
         android:name="com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment"
         android:label="fragment_loan_detail"
         tools:layout="@layout/fragment_loan_detail" />
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.finalproject.ui.menuFragment.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu">
+        <action
+            android:id="@+id/action_menuFragment_to_loansFragment"
+            app:destination="@id/loansFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_specialOfferFragment"
+            app:destination="@id/specialOfferFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/specialOfferFragment"
+        android:name="com.example.finalproject.ui.specialOfferFragment.SpecialOfferFragment"
+        android:label="fragment_special_offer"
+        tools:layout="@layout/fragment_special_offer">
+        <action
+            android:id="@+id/action_specialOfferFragment_to_addressOfBankFragment"
+            app:destination="@id/addressOfBankFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addressOfBankFragment"
+        android:name="com.example.finalproject.ui.addressOfBanksFragment.AddressOfBankFragment"
+        android:label="fragment_address_of_bank"
+        tools:layout="@layout/fragment_address_of_bank">
+        <action
+            android:id="@+id/action_addressOfBankFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

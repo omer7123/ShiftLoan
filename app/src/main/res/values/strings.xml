@@ -51,4 +51,14 @@
     <string name="status">Статус</string>
     <string name="detail_desc"><![CDATA[Когда займ примет статус «Одобрен», Вам нужно будет подойти с паспортом в отделение банка для подписания договора и получить деньги]]></string>
 
+    <string name="offers_for_you">Предложения для Вас</string>
+    <string name="bank_branches">Отделения банка</string>
+    <string name="help">Помощь</string>
+    <string name="language">Язык</string>
+    <string name="go_out">Выйти</string>
+    <string name="nearest_bank_branch">Ближайшее отделение банка</string>
+    <string name="special_offer">Специальное предложение</string>
+    <string name="special_offer_describe"><![CDATA[Погасите займ досрочно и мы увеличим лимит для следующего займа]]></string>
+    <string name="service_dont_work">Сервис временно недоступен</string>
+    <string name="return_to_home">Вернуться на главную</string>
 </resources>
