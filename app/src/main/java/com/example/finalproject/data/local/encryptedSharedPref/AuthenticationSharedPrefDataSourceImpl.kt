@@ -59,6 +59,14 @@ class AuthenticationSharedPrefDataSourceImpl @Inject constructor(context: Contex
         return token
     }
 
+    override suspend fun deleteToken() {
+        withContext(Dispatchers.IO) {
+            sharedPreferences.edit()
+                .putString(TOKEN, "")
+                .apply()
+        }
+    }
+
     companion object {
         private const val NAME = "name"
         private const val PASSWORD = "password"

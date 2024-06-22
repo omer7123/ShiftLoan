@@ -59,8 +59,6 @@ class MainActivity : AppCompatActivity(), NavbarHider {
     override fun setNavbarVisibility(it: Boolean) {
         binding.bottomNav.isVisible = it
     }
-
-
 }
 
 interface NavbarHider {

@@ -80,4 +80,9 @@ class HomeAuthenticationFragment : Fragment() {
         bottomSheetFragment.isCancelable = false
         bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

@@ -43,4 +43,8 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override suspend fun getToken(): String {
         return authenticationSharedPrefDataSource.getToken()
     }
+
+    override suspend fun deleteToken() {
+        authenticationSharedPrefDataSource.deleteToken()
+    }
 }

@@ -1,13 +1,23 @@
 package com.example.finalproject.ui.menuFragment
 
+import android.app.AlertDialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
+import com.example.finalproject.databinding.AlertDialogBinding
 import com.example.finalproject.databinding.FragmentMenuBinding
+import com.example.finalproject.presentation.menuFragment.LogOutStatusState
+import com.example.finalproject.presentation.menuFragment.MenuViewModel
+import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.util.getAppComponent
+import com.example.finalproject.util.showToast
+import javax.inject.Inject
 
 
 class MenuFragment : Fragment() {
@@ -15,12 +25,34 @@ class MenuFragment : Fragment() {
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = requireNotNull(_binding)
 
+    @Inject
+    lateinit var viewModelFactory: MultiViewModelFactory
+    private val viewModel: MenuViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MenuViewModel::class.java]
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        requireContext().getAppComponent().loanComponent().create().inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMenuBinding.inflate(layoutInflater)
+
+        viewModel.logOutStatus.observe(viewLifecycleOwner) { state ->
+            render(state)
+        }
         return binding.root
+    }
+
+    private fun render(state: LogOutStatusState) {
+        when (state) {
+            is LogOutStatusState.Error -> requireContext().showToast(state.msg)
+            LogOutStatusState.Success -> findNavController().navigate(R.id.action_menuFragment_to_homeAuthenticationFragment)
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,6 +75,33 @@ class MenuFragment : Fragment() {
         binding.bankBranchesLayout.content.setOnClickListener {
             findNavController().navigate(R.id.action_menuFragment_to_addressOfBankFragment)
         }
+        binding.helpLayout.content.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_helpFragment)
+        }
+        binding.logOutLayout.content.setOnClickListener {
+            showAlertDialog()
+        }
+        binding.languageLayout.content.setOnClickListener {
+            findNavController().navigate(R.id.action_menuFragment_to_changeLanguageFragment)
+        }
+    }
+
+    private fun showAlertDialog() {
+        val dialogBinding = AlertDialogBinding.inflate(LayoutInflater.from(requireContext()))
+
+        val alertDialog = AlertDialog.Builder(requireContext())
+            .setView(dialogBinding.root)
+            .create()
+
+        dialogBinding.buttonCancel.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
+        dialogBinding.buttonExit.setOnClickListener {
+            viewModel.logOut()
+            alertDialog.dismiss()
+        }
+        alertDialog.show()
     }
 
     private fun initView() {

@@ -194,7 +194,7 @@ class LoanDetailFragment : Fragment() {
     }
 
     companion object {
-        const val ID_KEY = "id_loan"
+        const val ID_KEY = "loanId"
         const val APPROVED = "APPROVED"
         const val REGISTERED = "REGISTERED"
         const val REJECTED = "REJECTED"

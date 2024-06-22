@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.changeLanguageFragment.ChangeLanguageFragment">
+
+
+    <Toolbar
+        android:id="@+id/toolbar"
+        style="@style/Headline2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:buttonGravity="top|bottom"
+        android:navigationIcon="@drawable/ic_back"
+        android:title="@string/language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/russian"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <RadioButton
+            android:id="@+id/russian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:buttonTint="@color/permanent_primary_dark"
+            android:gravity="right" />
+
+        <RadioButton
+            android:id="@+id/english"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/permanent_primary_dark"
+            android:buttonTint="@color/permanent_primary_dark" />
+    </RadioGroup>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_btn"
+        style="@style/ButtonPrimaryActive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:rippleColor="@color/bg_disable" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

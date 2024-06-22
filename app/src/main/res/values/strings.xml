@@ -61,4 +61,10 @@
     <string name="special_offer_describe"><![CDATA[Погасите займ досрочно и мы увеличим лимит для следующего займа]]></string>
     <string name="service_dont_work">Сервис временно недоступен</string>
     <string name="return_to_home">Вернуться на главную</string>
+    <string name="we_help">Мы поможем</string>
+    <string name="cancel">Отмена</string>
+    <string name="offer_log_out">Вы уверены, что хотите выйти?</string>
+    <string name="help_desc"><![CDATA[Остались вопросы по использованию приложения? Обратитесь к нам на горячую линию 8-800-300-10-10]]></string>
+    <string name="help_phone">8-800-300-10-10</string>
+    <string name="apply">Применить</string>
 </resources>

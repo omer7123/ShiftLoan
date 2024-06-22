@@ -11,4 +11,5 @@ interface AuthenticationRepository {
     suspend fun saveAuth(auth: AuthEntity)
     suspend fun saveToken(token: String)
     suspend fun getToken(): String
+    suspend fun deleteToken()
 }
