@@ -7,6 +7,7 @@ import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.loanDetailFragment.LoanDetailViewModel
 import com.example.finalproject.presentation.loansFragment.LoansViewModel
 import com.example.finalproject.presentation.menuFragment.MenuViewModel
+import com.example.finalproject.presentation.newLoanFragment.NewLoanViewModel
 import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
@@ -43,4 +44,8 @@ interface PresentationModule {
     @Binds
     @[IntoMap ClassKey(MenuViewModel::class)]
     fun provideMenuViewModel(menuViewModel: MenuViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ClassKey(NewLoanViewModel::class)]
+    fun provideNewLoanViewModel(newLoanViewModel: NewLoanViewModel): ViewModel
 }

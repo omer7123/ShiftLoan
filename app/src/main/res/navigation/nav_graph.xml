@@ -58,6 +58,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loanDetailFragment"
             app:destination="@id/loanDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_newLoanFragment"
+            app:destination="@id/newLoanFragment" />
     </fragment>
     <fragment
         android:id="@+id/loansFragment"
@@ -132,4 +135,24 @@
         android:name="com.example.finalproject.ui.changeLanguageFragment.ChangeLanguageFragment"
         android:label="fragment_change_language"
         tools:layout="@layout/fragment_change_language" />
+    <fragment
+        android:id="@+id/newLoanFragment"
+        android:name="com.example.finalproject.ui.newLoanFragment.NewLoanFragment"
+        android:label="fragment_new_loan"
+        tools:layout="@layout/fragment_new_loan">
+        <action
+            app:popUpTo="@id/newLoanFragment"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_newLoanFragment_to_successNewLoanFragment"
+            app:destination="@id/successNewLoanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/successNewLoanFragment"
+        android:name="com.example.finalproject.ui.successNewLoanFragment.SuccessNewLoanFragment"
+        android:label="fragment_success_new_loan"
+        tools:layout="@layout/fragment_success_new_loan">
+        <action
+            android:id="@+id/action_successNewLoanFragment_to_addressOfBankFragment"
+            app:destination="@id/addressOfBankFragment" />
+    </fragment>
 </navigation>

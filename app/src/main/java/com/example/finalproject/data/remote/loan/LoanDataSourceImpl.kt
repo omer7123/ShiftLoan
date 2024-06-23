@@ -4,6 +4,7 @@ import com.example.finalproject.core.BaseDataSource
 import com.example.finalproject.core.Resource
 import com.example.finalproject.data.model.LoanConditionsModel
 import com.example.finalproject.data.model.LoanModel
+import com.example.finalproject.data.model.LoanRequestModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -25,6 +26,12 @@ class LoanDataSourceImpl @Inject constructor(private val loanService: LoanServic
     override suspend fun getLoan(id: Int): Resource<LoanModel> = getResult {
         withContext(Dispatchers.IO) {
             loanService.getLoan(id)
+        }
+    }
+
+    override suspend fun createLoan(loan: LoanRequestModel): Resource<LoanModel> = getResult {
+        withContext(Dispatchers.IO) {
+            loanService.createLoan(loan)
         }
     }
 }

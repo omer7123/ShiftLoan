@@ -80,4 +80,11 @@
         <item name="passwordToggleEnabled">true</item>
     </style>
 
+    <style name="TextInputLayoutUserData" parent="TextInputLayout">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxBackgroundColor">@color/bg_secondary</item>
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeColor">@color/border_primary</item>
+        <item name="hintTextColor">@color/font_disable</item>
+    </style>
 </resources>

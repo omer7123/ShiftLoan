@@ -267,6 +267,7 @@
                         tools:text="Под 30% на 12 дней" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/new_loan_btn"
                         style="@style/ButtonPrimaryActive"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

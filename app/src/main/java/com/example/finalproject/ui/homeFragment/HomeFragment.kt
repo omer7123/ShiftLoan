@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentHomeBinding
+import com.example.finalproject.domain.entity.LoanRequestWithoutUserData
 import com.example.finalproject.presentation.homeFragment.HomeScreenState
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
@@ -49,10 +50,6 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
-
-//        if (activity is NavbarHider) {
-//            (activity as NavbarHider).setActualItem(R.id.homeFragment)
-//        }
 
         if (context is NavbarHider) {
             navbarHider = context as NavbarHider
@@ -211,6 +208,21 @@ class HomeFragment : Fragment() {
         binding.checkAllBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_loansFragment)
         }
+
+        binding.newLoanBtn.setOnClickListener {
+            if (binding.validationTv.text.toString()
+                    .isEmpty() && viewModel.screenState.value is HomeScreenState.Content
+            ) {
+                val bundle = Bundle()
+                val data = LoanRequestWithoutUserData(
+                    binding.sumEt.text.toString().toInt(),
+                    (viewModel.screenState.value as HomeScreenState.Content).conditions.percent,
+                    (viewModel.screenState.value as HomeScreenState.Content).conditions.period
+                )
+                bundle.putSerializable(DATA, data)
+                findNavController().navigate(R.id.action_homeFragment_to_newLoanFragment, bundle)
+            }
+        }
     }
 
     private fun stopShimmer() {
@@ -242,5 +254,9 @@ class HomeFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        const val DATA = "data"
     }
 }

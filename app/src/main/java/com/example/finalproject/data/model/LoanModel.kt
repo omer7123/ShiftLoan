@@ -21,3 +21,13 @@ data class LoanModel(
     val phoneNumber: String,
     val state: String
 )
+
+@Serializable
+data class LoanRequestModel(
+    val amount: Float,
+    val firstName: String,
+    val lastName: String,
+    val percent: Float,
+    val period: Int,
+    val phoneNumber: String,
+)

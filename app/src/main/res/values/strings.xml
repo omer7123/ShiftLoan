@@ -67,4 +67,10 @@
     <string name="help_desc"><![CDATA[Остались вопросы по использованию приложения? Обратитесь к нам на горячую линию 8-800-300-10-10]]></string>
     <string name="help_phone">8-800-300-10-10</string>
     <string name="apply">Применить</string>
+    <string name="your_data">Ваши данные</string>
+    <string name="applying_for_loan">Оформление займа</string>
+    <string name="phone">Телефон</string>
+    <string name="desc_new_loan">После оформления заявки на займ, банк проведет анализ вашей кредитной истории</string>
+    <string name="apply_for_loan">Оформить займ</string>
+    <string name="success_new_loan_desc"><![CDATA[Для получения придите в банк с паспортом до 20 мая]]></string>
 </resources>
