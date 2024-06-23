@@ -43,6 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name"
+            android:maxLength="20"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:textAppearance="@style/Body2" />
@@ -62,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/lastname"
+            android:maxLength="20"
             android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:textAppearance="@style/Body2" />

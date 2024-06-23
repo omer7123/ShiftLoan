@@ -151,6 +151,7 @@ class HomeFragment : Fragment() {
             binding.sumEt.requestFocus()
             binding.sumEt.selectAll()
 
+            binding.newLoanBtn.isClickable = false
             imm.showSoftInput(binding.sumEt, InputMethodManager.SHOW_IMPLICIT)
         }
 
@@ -160,14 +161,24 @@ class HomeFragment : Fragment() {
                 binding.sumEt.isFocusableInTouchMode = false
 
                 imm.hideSoftInputFromWindow(binding.sumEt.windowToken, 0)
-                val value = binding.sumEt.text.toString()
+                var value = binding.sumEt.text.toString()
+                if (value.isEmpty()) {
+                    value = "0"
+                    binding.sumEt.setText("0")
+                }
 
                 if (value.toInt() <= binding.sumSb.max)
                     binding.sumSb.progress = value.toInt()
                 else {
                     binding.sumSb.progress = binding.sumSb.max
                 }
+
+                binding.newLoanBtn.isClickable = true
+
+
+
                 viewModel.setValueLoan(binding.sumEt.text.toString())
+
                 true
             } else {
                 false

@@ -39,8 +39,8 @@ class SuccessNewLoanFragment : Fragment() {
     }
 
     private fun initView() {
-        val amount = arguments!!.getInt(NewLoanFragment.AMOUNT)
-        binding.titleTv.text = "Получите $amount ₽ в банке"
+        val amount = requireArguments().getInt(NewLoanFragment.AMOUNT)
+        binding.titleTv.text = getString(R.string.get_money_in_bank, amount.toString())
     }
 
     override fun onDestroy() {

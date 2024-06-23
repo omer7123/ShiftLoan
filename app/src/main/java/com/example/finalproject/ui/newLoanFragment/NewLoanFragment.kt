@@ -66,6 +66,10 @@ class NewLoanFragment : Fragment() {
                         bundle
                     )
                 }
+
+                if (state.loan.state == REJECTED) {
+                    findNavController().navigate(R.id.action_newLoanFragment_to_errorNewLoanFragment)
+                }
             }
         }
     }
@@ -104,7 +108,7 @@ class NewLoanFragment : Fragment() {
                     val phone = binding.phoneTv.text.toString()
 
                     val dataWithoutUser =
-                        arguments!!.getSerializable(HomeFragment.DATA) as LoanRequestWithoutUserData
+                        requireArguments().getSerializable(HomeFragment.DATA) as LoanRequestWithoutUserData
                     val amount = dataWithoutUser.amount
                     val percent = dataWithoutUser.percent
                     val period = dataWithoutUser.period

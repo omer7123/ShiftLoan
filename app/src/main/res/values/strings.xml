@@ -73,4 +73,7 @@
     <string name="desc_new_loan">После оформления заявки на займ, банк проведет анализ вашей кредитной истории</string>
     <string name="apply_for_loan">Оформить займ</string>
     <string name="success_new_loan_desc"><![CDATA[Для получения придите в банк с паспортом до 20 мая]]></string>
+    <string name="application_not_approved">Заявка не одобрена</string>
+    <string name="error_new_loan_desc"><![CDATA[Сейчас мы не можем одобрить вашу заявку]]></string>
+    <string name="get_money_in_bank">Получите %1$s ₽ в банке</string>
 </resources>

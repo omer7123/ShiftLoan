@@ -141,10 +141,15 @@
         android:label="fragment_new_loan"
         tools:layout="@layout/fragment_new_loan">
         <action
-            app:popUpTo="@id/newLoanFragment"
-            app:popUpToInclusive="true"
             android:id="@+id/action_newLoanFragment_to_successNewLoanFragment"
-            app:destination="@id/successNewLoanFragment" />
+            app:destination="@id/successNewLoanFragment"
+            app:popUpTo="@id/newLoanFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_newLoanFragment_to_errorNewLoanFragment"
+            app:destination="@id/errorNewLoanFragment"
+            app:popUpTo="@id/newLoanFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/successNewLoanFragment"
@@ -155,4 +160,9 @@
             android:id="@+id/action_successNewLoanFragment_to_addressOfBankFragment"
             app:destination="@id/addressOfBankFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/errorNewLoanFragment"
+        android:name="com.example.finalproject.ui.errorNewLoanFragment.ErrorNewLoanFragment"
+        android:label="fragment_error_new_loan"
+        tools:layout="@layout/fragment_error_new_loan" />
 </navigation>
