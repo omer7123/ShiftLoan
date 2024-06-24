@@ -14,7 +14,7 @@ class AuthenticationSharedPrefDataSourceImpl @Inject constructor(context: Contex
 
     private val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
     private val sharedPreferences = EncryptedSharedPreferences.create(
-        "auth_pref",
+        FILE_NAME,
         masterKeyAlias,
         context,
         EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
@@ -71,5 +71,6 @@ class AuthenticationSharedPrefDataSourceImpl @Inject constructor(context: Contex
         private const val NAME = "name"
         private const val PASSWORD = "password"
         private const val TOKEN = "token"
+        private const val FILE_NAME = "auth_pref"
     }
 }

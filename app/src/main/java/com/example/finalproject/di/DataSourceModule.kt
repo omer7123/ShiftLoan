@@ -2,6 +2,8 @@ package com.example.finalproject.di
 
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSourceImpl
+import com.example.finalproject.data.local.sharedPref.LocaleSharedPrefDataSource
+import com.example.finalproject.data.local.sharedPref.LocaleSharedPrefDataSourceImpl
 import com.example.finalproject.data.remote.authentication.AuthenticationDataSource
 import com.example.finalproject.data.remote.authentication.AuthenticationDataSourceImpl
 import com.example.finalproject.data.remote.loan.LoanDataSource
@@ -24,4 +26,8 @@ interface DataSourceModule {
     @Binds
     @Singleton
     fun bindLoanDataSource(impl: LoanDataSourceImpl): LoanDataSource
+
+    @Binds
+    @Singleton
+    fun bindLocaleSharedPrefDataSource(impl: LocaleSharedPrefDataSourceImpl): LocaleSharedPrefDataSource
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/bg_primary"
     android:layout_height="match_parent"
     tools:context=".ui.changeLanguageFragment.ChangeLanguageFragment">
 
@@ -20,27 +21,55 @@
 
 
     <RadioGroup
+        android:layout_marginTop="16dp"
         android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/russian"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar">
 
         <RadioButton
             android:id="@+id/russian"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:buttonTint="@color/permanent_primary_dark"
-            android:gravity="right" />
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/english"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/permanent_primary_dark"
-            android:buttonTint="@color/permanent_primary_dark" />
+            android:buttonTint="@color/permanent_primary_dark"
+            android:gravity="center_vertical" />
     </RadioGroup>
+
+    <LinearLayout
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="@id/radioGroup"
+        app:layout_constraintTop_toTopOf="@id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+
+        <TextView
+            android:id="@+id/russian_tv"
+            android:layout_width="wrap_content"
+            style="@style/Body2"
+            android:layout_height="wrap_content"
+            android:text="@string/russian"
+            app:layout_constraintTop_toTopOf="@id/radioGroup" />
+
+        <TextView
+            android:id="@+id/english_tv"
+            android:layout_marginTop="20dp"
+            style="@style/Body2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/english"
+            app:layout_constraintTop_toTopOf="@id/radioGroup" />
+
+    </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_btn"

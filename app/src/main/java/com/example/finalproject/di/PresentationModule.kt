@@ -2,10 +2,12 @@ package com.example.finalproject.di
 
 import androidx.lifecycle.ViewModel
 import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
+import com.example.finalproject.presentation.changeLanguageFragment.ChangeLanguageViewModel
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
 import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.loanDetailFragment.LoanDetailViewModel
 import com.example.finalproject.presentation.loansFragment.LoansViewModel
+import com.example.finalproject.presentation.mainActivity.MainViewModel
 import com.example.finalproject.presentation.menuFragment.MenuViewModel
 import com.example.finalproject.presentation.newLoanFragment.NewLoanViewModel
 import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
@@ -48,4 +50,12 @@ interface PresentationModule {
     @Binds
     @[IntoMap ClassKey(NewLoanViewModel::class)]
     fun provideNewLoanViewModel(newLoanViewModel: NewLoanViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ClassKey(ChangeLanguageViewModel::class)]
+    fun provideChangeLanguageViewModel(changeLanguageViewModel: ChangeLanguageViewModel): ViewModel
+
+    @Binds
+    @[IntoMap ClassKey(MainViewModel::class)]
+    fun provideMainViewModel(mainViewModel: MainViewModel): ViewModel
 }

@@ -15,6 +15,7 @@ interface AppComponent {
     fun apiUrlProvider(): ApiUrlProvider
     fun authenticationComponent(): AuthenticationComponent.Factory
     fun loanComponent(): LoanComponent.Factory
+    fun settingsComponent(): SettingsComponent.Factory
 
     @Component.Factory
     interface Factory {

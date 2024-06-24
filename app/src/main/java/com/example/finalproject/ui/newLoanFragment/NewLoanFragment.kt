@@ -86,45 +86,56 @@ class NewLoanFragment : Fragment() {
         }
 
         binding.nextBtn.setOnClickListener {
-            var error1 = binding.containerLastname.error
-            var error2 = binding.containerName.error
-            var error3 = binding.containerPhone.error
-            if (error1.isNullOrEmpty() && error2.isNullOrEmpty() && error3.isNullOrEmpty()) {
-                if (binding.phoneTv.text.toString().isEmpty())
-                    binding.containerPhone.error = "Поле не может быть пустым"
-                if (binding.nameTv.text.toString().isEmpty())
-                    binding.containerName.error = "Поле не может быть пустым"
+            if (validateFields()) {
+                val name = binding.nameTv.text.toString()
+                val lastName = binding.lastnameTv.text.toString()
+                val phone = binding.phoneTv.text.toString()
 
-                if (binding.lastnameTv.text.toString().isEmpty())
-                    binding.containerLastname.error = "Поле не может быть пустым"
+                val dataWithoutUser =
+                    requireArguments().getSerializable(HomeFragment.DATA) as LoanRequestWithoutUserData
+                val amount = dataWithoutUser.amount
+                val percent = dataWithoutUser.percent
+                val period = dataWithoutUser.period
 
-                error1 = binding.containerLastname.error
-                error2 = binding.containerName.error
-                error3 = binding.containerPhone.error
-                if (error1.isNullOrEmpty() && error2.isNullOrEmpty() && error3.isNullOrEmpty()) {
-
-                    val name = binding.nameTv.text.toString()
-                    val lastName = binding.lastnameTv.text.toString()
-                    val phone = binding.phoneTv.text.toString()
-
-                    val dataWithoutUser =
-                        requireArguments().getSerializable(HomeFragment.DATA) as LoanRequestWithoutUserData
-                    val amount = dataWithoutUser.amount
-                    val percent = dataWithoutUser.percent
-                    val period = dataWithoutUser.period
-                    viewModel.createLoan(
-                        LoanRequestEntity(
-                            amount,
-                            name,
-                            lastName,
-                            percent,
-                            period,
-                            phone
-                        )
+                viewModel.createLoan(
+                    LoanRequestEntity(
+                        amount,
+                        name,
+                        lastName,
+                        percent,
+                        period,
+                        phone
                     )
-                }
+                )
             }
         }
+    }
+
+    private fun validateFields(): Boolean {
+        var isValid = true
+
+        if (binding.lastnameTv.text.toString().isEmpty()) {
+            binding.containerLastname.error = getString(R.string.field_cannot_be_empty)
+            isValid = false
+        } else {
+            binding.containerLastname.error = null
+        }
+
+        if (binding.nameTv.text.toString().isEmpty()) {
+            binding.containerName.error = getString(R.string.field_cannot_be_empty)
+            isValid = false
+        } else {
+            binding.containerName.error = null
+        }
+
+        if (binding.phoneTv.text.toString().isEmpty()) {
+            binding.containerPhone.error = getString(R.string.field_cannot_be_empty)
+            isValid = false
+        } else {
+            binding.containerPhone.error = null
+        }
+
+        return isValid
     }
 
     private fun setupValidation() {
@@ -134,7 +145,8 @@ class NewLoanFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val pattern = Regex("^[А-Яа-яЁё ]+\$")
                 if (!pattern.matches(s.toString()) && s.toString().isNotEmpty()) {
-                    binding.containerName.error = "Имя должно содержать только кириллицу"
+                    binding.containerName.error =
+                        getString(R.string.the_name_must_contain_only_cyrillic)
                 } else {
                     binding.containerName.error = null
                 }
@@ -151,7 +163,8 @@ class NewLoanFragment : Fragment() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 val pattern = Regex("^[А-Яа-яЁё ]+\$")
                 if (!pattern.matches(s.toString()) && s.toString().isNotEmpty()) {
-                    binding.containerLastname.error = "Фамилия должна содержать только кириллицу"
+                    binding.containerLastname.error =
+                        getString(R.string.lastname_must_contain_only_cyrillic)
                 } else {
                     binding.containerLastname.error = null
                 }
@@ -171,7 +184,7 @@ class NewLoanFragment : Fragment() {
                 val russianPhonePattern = "^\\+7 \\d{3} \\d{3}-\\d{2}-\\d{2}$"
 
                 if (!phoneNumber.matches(Regex(russianPhonePattern))) {
-                    binding.containerPhone.error = "Некорректный номер телефона"
+                    binding.containerPhone.error = getString(R.string.invalid_phone_number)
                 } else {
                     binding.containerPhone.error = null
                 }

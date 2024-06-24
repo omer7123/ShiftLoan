@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="27dp"
-                        android:text="Получите займ"
+                        android:text="@string/get_a_loan"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -83,7 +83,7 @@
                         style="@style/Headline2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="в 2 клика"
+                        android:text="@string/in_2_clicks"
                         app:layout_constraintStart_toStartOf="@id/banner_title_1_tv"
                         app:layout_constraintTop_toBottomOf="@id/banner_title_1_tv" />
 
@@ -94,7 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="12dp"
-                        android:text="Деньги наличными"
+                        android:text="@string/money_cash"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/banner_title_2_tv" />
 
@@ -102,7 +102,7 @@
                         style="@style/Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="на любые цели"
+                        android:text="@string/for_any_purpose"
                         app:layout_constraintStart_toStartOf="@id/banner_describe_1"
                         app:layout_constraintTop_toBottomOf="@id/banner_describe_1" />
                 </androidx.constraintlayout.widget.ConstraintLayout>

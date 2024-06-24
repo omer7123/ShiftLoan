@@ -1,13 +1,20 @@
 package com.example.finalproject.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.example.finalproject.R
 import com.example.finalproject.databinding.ActivityMainBinding
+import com.example.finalproject.presentation.mainActivity.MainViewModel
+import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.util.getAppComponent
+import java.util.Locale
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavbarHider {
 
@@ -15,13 +22,47 @@ class MainActivity : AppCompatActivity(), NavbarHider {
     private val binding get() = requireNotNull(_binding)
 
     private lateinit var navController: NavController
+
+    @Inject
+    lateinit var viewModelFactory: MultiViewModelFactory
+    private val viewModel: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        getAppComponent().inject(this)
+
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         initNavControllerWithBottomNav()
         setupNavigationListener()
+        viewModel.locale.observe(this) { locale ->
+            renderLocale(locale)
+        }
+        viewModel.getLocale()
+    }
 
+    private fun renderLocale(language: String) {
+
+        val locale: Locale = if (language.isNotEmpty())
+            Locale(language)
+        else
+            Locale("ru")
+
+        Locale.setDefault(locale)
+        val config = Configuration()
+        config.setLocale(locale)
+
+        val context = createConfigurationContext(config)
+        resources.updateConfiguration(config, context.resources.displayMetrics)
+        updateBottomNavTitles()
+    }
+
+    private fun updateBottomNavTitles() {
+        binding.bottomNav.menu.findItem(R.id.homeFragment).title = getString(R.string.home)
+        binding.bottomNav.menu.findItem(R.id.menuFragment).title = getString(R.string.menu)
     }
 
     private fun setupNavigationListener() {
