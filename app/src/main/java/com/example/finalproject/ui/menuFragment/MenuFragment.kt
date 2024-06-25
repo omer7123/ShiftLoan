@@ -70,7 +70,7 @@ class MenuFragment : Fragment() {
             findNavController().navigate(R.id.action_menuFragment_to_loansFragment)
         }
         binding.offersLayout.content.setOnClickListener {
-            findNavController().navigate(R.id.specialOfferFragment)
+            findNavController().navigate(R.id.action_menuFragment_to_specialOfferFragment)
         }
         binding.bankBranchesLayout.content.setOnClickListener {
             findNavController().navigate(R.id.action_menuFragment_to_addressOfBankFragment)
