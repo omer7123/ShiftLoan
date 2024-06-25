@@ -23,7 +23,6 @@ class LoanDetailViewModel @Inject constructor(private val getLoanByIdUseCase: Ge
                 is Resource.Error -> _stateScreen.value =
                     LoadDetailScreenState.Error(result.msg.toString())
 
-                Resource.Loading -> _stateScreen.value = LoadDetailScreenState.Loading
                 is Resource.Success -> _stateScreen.value =
                     LoadDetailScreenState.Content(result.data)
             }

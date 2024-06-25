@@ -19,7 +19,7 @@ class NewLoanViewModel @Inject constructor(private val createLoanUseCase: Create
 
     private val handler = CoroutineExceptionHandler { _, _ ->
         _createNewLoanStatus.value =
-            CreateNewLoanStatusState.Error("Произошла ошибка, попробуйте еще раз")
+            CreateNewLoanStatusState.Error(null)
     }
 
     fun createLoan(loan: LoanRequestEntity) {
@@ -29,7 +29,6 @@ class NewLoanViewModel @Inject constructor(private val createLoanUseCase: Create
                 is Resource.Error -> _createNewLoanStatus.value =
                     CreateNewLoanStatusState.Error(result.msg.toString())
 
-                Resource.Loading -> _createNewLoanStatus.value = CreateNewLoanStatusState.Loading
                 is Resource.Success -> _createNewLoanStatus.value =
                     CreateNewLoanStatusState.Success(result.data)
             }

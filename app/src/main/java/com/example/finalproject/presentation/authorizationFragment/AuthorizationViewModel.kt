@@ -32,9 +32,6 @@ class AuthorizationViewModel @Inject constructor(
                 is Resource.Error -> _authorizationStatusState.value =
                     AuthorizationStatusState.Error(result.msg.toString(), result.responseCode)
 
-                Resource.Loading -> _authorizationStatusState.value =
-                    AuthorizationStatusState.Loading
-
                 is Resource.Success -> renderSuccess(result.data)
             }
         }

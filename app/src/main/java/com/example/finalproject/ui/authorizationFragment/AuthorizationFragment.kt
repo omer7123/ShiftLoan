@@ -83,7 +83,6 @@ class AuthorizationFragment : Fragment() {
             is AuthorizationStatusState.Error -> renderError(state.msg, state.code)
             AuthorizationStatusState.Loading -> renderLoading()
             AuthorizationStatusState.Success -> renderSuccess()
-
         }
     }
 
@@ -107,7 +106,6 @@ class AuthorizationFragment : Fragment() {
             if (code == 404) requireContext().showToast(getString(R.string.user_hasnot))
             else requireContext().showToast(msg)
         }
-
         binding.content.isClickable = true
         binding.content.expand()
         binding.progressCircular.isVisible = false

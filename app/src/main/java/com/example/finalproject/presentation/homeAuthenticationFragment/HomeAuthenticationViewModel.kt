@@ -27,7 +27,6 @@ class HomeAuthenticationViewModel @Inject constructor(
 
             when (getLoansAllUseCase()) {
                 is Resource.Error -> _authStatus.value = HomeAuthenticationAuthStatus.Error
-                Resource.Loading -> _authStatus.value = HomeAuthenticationAuthStatus.Loading
                 is Resource.Success -> _authStatus.value = HomeAuthenticationAuthStatus.Success
             }
         }

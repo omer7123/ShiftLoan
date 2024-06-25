@@ -22,7 +22,6 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return when (val result =
             authenticationDataSource.registration(AuthModel(auth.name, auth.password))) {
             is Resource.Error -> Resource.Error(result.msg.toString(), null, result.responseCode)
-            Resource.Loading -> Resource.Loading
             is Resource.Success -> Resource.Success(ResponseRegisterEntity(result.data.name))
         }
     }

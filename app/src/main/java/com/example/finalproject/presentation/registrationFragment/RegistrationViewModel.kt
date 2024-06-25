@@ -42,7 +42,6 @@ class RegistrationViewModel @Inject constructor(
                     is Resource.Error -> _registrationStatus.value =
                         RegistrationStatusState.Error(result.msg.toString(), result.responseCode)
 
-                    Resource.Loading -> _screenState.value = RegistrationScreenState.Loading
                     is Resource.Success -> authorization(auth)
                 }
             }
@@ -54,7 +53,6 @@ class RegistrationViewModel @Inject constructor(
             is Resource.Error -> _registrationStatus.value =
                 RegistrationStatusState.Error(result.msg.toString(), null)
 
-            Resource.Loading -> _screenState.value = RegistrationScreenState.Loading
             is Resource.Success -> {
                 saveTokenUseCase(result.data)
                 _registrationStatus.value = RegistrationStatusState.Success

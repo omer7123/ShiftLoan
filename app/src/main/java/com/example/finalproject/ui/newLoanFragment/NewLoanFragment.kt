@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -19,8 +20,10 @@ import com.example.finalproject.presentation.multiViewModelFactory.MultiViewMode
 import com.example.finalproject.presentation.newLoanFragment.CreateNewLoanStatusState
 import com.example.finalproject.presentation.newLoanFragment.NewLoanViewModel
 import com.example.finalproject.ui.homeFragment.HomeFragment
+import com.example.finalproject.util.expand
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
+import com.example.finalproject.util.shrink
 import javax.inject.Inject
 
 
@@ -54,24 +57,46 @@ class NewLoanFragment : Fragment() {
 
     private fun render(state: CreateNewLoanStatusState) {
         when (state) {
-            is CreateNewLoanStatusState.Error -> requireContext().showToast(state.msg)
-            CreateNewLoanStatusState.Loading -> {}
-            is CreateNewLoanStatusState.Success -> {
-                if (state.loan.state == APPROVED || state.loan.state == REGISTERED) {
-                    val amount = state.loan.amount.toInt()
-                    val bundle = Bundle()
-                    bundle.putInt(AMOUNT, amount)
-                    findNavController().navigate(
-                        R.id.action_newLoanFragment_to_successNewLoanFragment,
-                        bundle
-                    )
-                }
-
-                if (state.loan.state == REJECTED) {
-                    findNavController().navigate(R.id.action_newLoanFragment_to_errorNewLoanFragment)
-                }
-            }
+            is CreateNewLoanStatusState.Error -> renderError(state.msg)
+            CreateNewLoanStatusState.Loading -> renderLoading()
+            is CreateNewLoanStatusState.Success -> renderSuccess(state)
         }
+    }
+
+    private fun renderSuccess(state: CreateNewLoanStatusState.Success) {
+        if (state.loan.state == APPROVED || state.loan.state == REGISTERED) {
+            val amount = state.loan.amount.toInt()
+            val bundle = Bundle()
+            bundle.putInt(AMOUNT, amount)
+            findNavController().navigate(
+                R.id.action_newLoanFragment_to_successNewLoanFragment,
+                bundle
+            )
+        }
+
+        if (state.loan.state == REJECTED) {
+            findNavController().navigate(R.id.action_newLoanFragment_to_errorNewLoanFragment)
+        }
+    }
+
+    private fun renderLoading() {
+        binding.content.shrink()
+        binding.content.isClickable = false
+        binding.progressCircular.isVisible = true
+        binding.progressCircular.scaleX = 0f
+        binding.progressCircular.scaleY = 0f
+        binding.progressCircular.expand()
+    }
+
+    private fun renderError(msg: String?) {
+        if (msg.isNullOrEmpty()) {
+            requireContext().showToast(getString(R.string.unknown_error))
+        } else
+            requireContext().showToast(msg)
+
+        binding.content.isClickable = true
+        binding.content.expand()
+        binding.progressCircular.isVisible = false
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

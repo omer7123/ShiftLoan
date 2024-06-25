@@ -23,7 +23,6 @@ class LoansViewModel @Inject constructor(private val getLoansAllUseCase: GetLoan
                 is Resource.Error -> _screenState.value =
                     LoansScreenState.Error(result.msg.toString())
 
-                Resource.Loading -> _screenState.value = LoansScreenState.Loading
                 is Resource.Success -> _screenState.value = LoansScreenState.Content(result.data)
             }
         }
