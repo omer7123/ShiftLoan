@@ -145,6 +145,17 @@ class HomeFragment : Fragment() {
         binding.loanRv.adapter = adapter
 
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        binding.sumEt.setOnClickListener {
+            binding.sumEt.isFocusable = true
+            binding.sumEt.isFocusableInTouchMode = true
+            binding.sumEt.requestFocus()
+            binding.sumEt.selectAll()
+
+            binding.newLoanBtn.isClickable = false
+            imm.showSoftInput(binding.sumEt, InputMethodManager.SHOW_IMPLICIT)
+        }
+
         binding.editIv.setOnClickListener {
             binding.sumEt.isFocusable = true
             binding.sumEt.isFocusableInTouchMode = true
@@ -172,10 +183,7 @@ class HomeFragment : Fragment() {
                 else {
                     binding.sumSb.progress = binding.sumSb.max
                 }
-
                 binding.newLoanBtn.isClickable = true
-
-
 
                 viewModel.setValueLoan(binding.sumEt.text.toString())
 
