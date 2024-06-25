@@ -5,7 +5,7 @@ import com.example.finalproject.ui.changeLanguageFragment.ChangeLanguageFragment
 import dagger.Subcomponent
 
 @FragmentScope
-@Subcomponent
+@Subcomponent(modules = [SettingsModule::class])
 interface SettingsComponent {
     fun inject(fragment: ChangeLanguageFragment)
 

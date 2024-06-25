@@ -1,16 +1,7 @@
 package com.example.finalproject.di
 
 import androidx.lifecycle.ViewModel
-import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
-import com.example.finalproject.presentation.changeLanguageFragment.ChangeLanguageViewModel
-import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
-import com.example.finalproject.presentation.homeFragment.HomeViewModel
-import com.example.finalproject.presentation.loanDetailFragment.LoanDetailViewModel
-import com.example.finalproject.presentation.loansFragment.LoansViewModel
 import com.example.finalproject.presentation.mainActivity.MainViewModel
-import com.example.finalproject.presentation.menuFragment.MenuViewModel
-import com.example.finalproject.presentation.newLoanFragment.NewLoanViewModel
-import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.ClassKey
@@ -18,43 +9,6 @@ import dagger.multibindings.IntoMap
 
 @Module
 interface PresentationModule {
-
-    @Binds
-    @[IntoMap ClassKey(AuthorizationViewModel::class)]
-    fun provideAuthorizationViewModel(authorizationViewModel: AuthorizationViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(RegistrationViewModel::class)]
-    fun provideRegistrationViewModel(registrationViewModel: RegistrationViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(HomeAuthenticationViewModel::class)]
-    fun provideHomeAuthenticationViewModel(homeAuthenticationViewModel: HomeAuthenticationViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(HomeViewModel::class)]
-    fun provideHomeViewModel(homeViewModel: HomeViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(LoansViewModel::class)]
-    fun provideLoansViewModel(loansViewModel: LoansViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(LoanDetailViewModel::class)]
-    fun provideLoanDetailViewModel(loanDetailViewModel: LoanDetailViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(MenuViewModel::class)]
-    fun provideMenuViewModel(menuViewModel: MenuViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(NewLoanViewModel::class)]
-    fun provideNewLoanViewModel(newLoanViewModel: NewLoanViewModel): ViewModel
-
-    @Binds
-    @[IntoMap ClassKey(ChangeLanguageViewModel::class)]
-    fun provideChangeLanguageViewModel(changeLanguageViewModel: ChangeLanguageViewModel): ViewModel
-
     @Binds
     @[IntoMap ClassKey(MainViewModel::class)]
     fun provideMainViewModel(mainViewModel: MainViewModel): ViewModel

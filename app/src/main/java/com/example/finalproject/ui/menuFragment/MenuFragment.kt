@@ -33,7 +33,7 @@ class MenuFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        requireContext().getAppComponent().loanComponent().create().inject(this)
+        requireContext().getAppComponent().authenticationComponent().create().inject(this)
     }
 
     override fun onCreateView(
