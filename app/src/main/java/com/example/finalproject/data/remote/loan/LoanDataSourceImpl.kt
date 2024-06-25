@@ -1,5 +1,6 @@
 package com.example.finalproject.data.remote.loan
 
+import android.content.Context
 import com.example.finalproject.core.BaseDataSource
 import com.example.finalproject.core.Resource
 import com.example.finalproject.data.model.LoanConditionsModel
@@ -9,8 +10,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class LoanDataSourceImpl @Inject constructor(private val loanService: LoanService) : LoanDataSource,
-    BaseDataSource() {
+class LoanDataSourceImpl @Inject constructor(
+    private val loanService: LoanService,
+    context: Context
+) : LoanDataSource,
+    BaseDataSource(context) {
     override suspend fun getLoanConditions(): Resource<LoanConditionsModel> = getResult {
         withContext(Dispatchers.IO) {
             loanService.getLoanConditions()

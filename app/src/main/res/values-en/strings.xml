@@ -75,4 +75,11 @@
     <string name="in_2_clicks">in 2 clicks</string>
     <string name="money_cash">Money cash</string>
     <string name="for_any_purpose">for any purpose</string>
+    <string name="only_number_and_english_char">Only numbers and Latin letters</string>
+    <string name="password_mismatch">Password mismatch</string>
+    <string name="login_is_buzy">Sorry, a user with this login is already registered</string>
+    <string name="unknown_error">An unexpected error occurred</string>
+    <string name="user_hasnot">This user does not exist</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="time_out">Expected request timed out</string>
 </resources>

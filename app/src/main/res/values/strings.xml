@@ -91,4 +91,6 @@
     <string name="login_is_buzy">Извините, пользователь с данным логином уже зарегистрирован</string>
     <string name="unknown_error">Произошла непредвиденная ошибка</string>
     <string name="user_hasnot">Такого пользователя не существует</string>
+    <string name="no_internet">Нет соединения с интернетом</string>
+    <string name="time_out">Время ожидаемого запроса истекло</string>
 </resources>
