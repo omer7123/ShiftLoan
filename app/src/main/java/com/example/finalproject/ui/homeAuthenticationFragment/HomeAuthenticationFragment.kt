@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentHomeAuthenticationBinding
-import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationScreenState
+import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationAuthStatus
 import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuthenticationViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.ui.NavbarHider
@@ -56,12 +56,11 @@ class HomeAuthenticationFragment : Fragment() {
         return binding.root
     }
 
-    private fun render(status: HomeAuthenticationScreenState) {
+    private fun render(status: HomeAuthenticationAuthStatus) {
         when (status) {
-            is HomeAuthenticationScreenState.Error -> renderError()
-            HomeAuthenticationScreenState.Initial -> {}
-            HomeAuthenticationScreenState.Loading -> renderLoading()
-            HomeAuthenticationScreenState.Success -> renderSuccess()
+            is HomeAuthenticationAuthStatus.Error -> renderError()
+            HomeAuthenticationAuthStatus.Loading -> renderLoading()
+            HomeAuthenticationAuthStatus.Success -> renderSuccess()
         }
     }
 

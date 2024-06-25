@@ -21,19 +21,10 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override suspend fun registration(auth: AuthEntity): Resource<ResponseRegisterEntity> {
         return when (val result =
             authenticationDataSource.registration(AuthModel(auth.name, auth.password))) {
-            is Resource.Error -> Resource.Error(result.msg.toString(), null)
+            is Resource.Error -> Resource.Error(result.msg.toString(), null, result.responseCode)
             Resource.Loading -> Resource.Loading
             is Resource.Success -> Resource.Success(ResponseRegisterEntity(result.data.name))
         }
-    }
-
-    override suspend fun getAuth(): AuthEntity {
-        val authModel = authenticationSharedPrefDataSource.getAuth()
-        return AuthEntity(authModel.name, authModel.password)
-    }
-
-    override suspend fun saveAuth(auth: AuthEntity) {
-        authenticationSharedPrefDataSource.saveAuth(auth.name, auth.password)
     }
 
     override suspend fun saveToken(token: String) {

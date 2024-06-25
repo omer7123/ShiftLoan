@@ -15,7 +15,9 @@ import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentRegistrationBinding
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.presentation.registrationFragment.RegistrationScreenState
+import com.example.finalproject.presentation.registrationFragment.RegistrationStatusState
 import com.example.finalproject.presentation.registrationFragment.RegistrationViewModel
+import com.example.finalproject.presentation.registrationFragment.ValidationErrorCallback
 import com.example.finalproject.util.expand
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
@@ -25,7 +27,8 @@ import com.google.android.material.textfield.TextInputLayout
 import javax.inject.Inject
 
 
-class RegistrationFragment : Fragment() {
+class RegistrationFragment : Fragment(), ValidationErrorCallback {
+
     private var _binding: FragmentRegistrationBinding? = null
     private val binding get() = requireNotNull(_binding)
 
@@ -49,12 +52,17 @@ class RegistrationFragment : Fragment() {
         viewModel.screenState.observe(viewLifecycleOwner) { state ->
             render(state)
         }
+
+        viewModel.registrationStatus.observe(viewLifecycleOwner) { state ->
+            renderRegistrationStatus(state)
+        }
+
+        viewModel.setValidationErrorCallback(this)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         binding.signBtn.setOnClickListener {
             val name = binding.loginTv.text.toString()
@@ -70,17 +78,22 @@ class RegistrationFragment : Fragment() {
         setupTextChangedListener(binding.replayPasswordTv, binding.containerReplayPassword)
     }
 
-    private fun render(state: RegistrationScreenState) {
+    private fun renderRegistrationStatus(state: RegistrationStatusState) {
         when (state) {
-            is RegistrationScreenState.Error -> renderError(state.msg)
-            RegistrationScreenState.Initial -> {}
-            RegistrationScreenState.Loading -> renderLoading()
-            RegistrationScreenState.Success -> renderSuccess()
-            is RegistrationScreenState.ValidationError -> renderValidation(state)
+            is RegistrationStatusState.Error -> renderError(state.msg, state.code)
+            RegistrationStatusState.Success -> renderSuccess()
         }
     }
 
-    private fun renderValidation(state: RegistrationScreenState.ValidationError) {
+    private fun render(state: RegistrationScreenState) {
+        when (state) {
+            RegistrationScreenState.Initial -> {}
+            RegistrationScreenState.Loading -> renderLoading()
+            is RegistrationScreenState.ValidationErrorContent -> renderValidation(state)
+        }
+    }
+
+    private fun renderValidation(state: RegistrationScreenState.ValidationErrorContent) {
         binding.containerLogin.error = state.nameError
         binding.containerPassword.error = state.passwordError
         binding.containerReplayPassword.error = state.confirmPasswordError
@@ -98,8 +111,10 @@ class RegistrationFragment : Fragment() {
         binding.progressCircular.expand()
     }
 
-    private fun renderError(msg: String) {
-        requireContext().showToast(msg)
+    private fun renderError(msg: String, code: Int?) {
+        if (code == 400) {
+            requireContext().showToast(getString(R.string.login_is_buzy))
+        } else requireContext().showToast(msg)
         binding.content.expand()
         binding.progressCircular.isVisible = false
     }
@@ -123,4 +138,19 @@ class RegistrationFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+    override fun getNameEmptyError(): String =
+        getString(R.string.field_cannot_be_empty)
+
+    override fun getInvalidNameError(): String =
+        getString(R.string.only_number_and_english_char)
+
+    override fun getPasswordEmptyError(): String =
+        getString(R.string.field_cannot_be_empty)
+
+    override fun getConfirmPasswordEmptyError(): String =
+        getString(R.string.field_cannot_be_empty)
+
+    override fun getPasswordsDoNotMatchError(): String =
+        getString(R.string.password_mismatch)
 }

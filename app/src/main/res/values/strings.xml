@@ -86,4 +86,9 @@
     <string name="in_2_clicks">в 2 клика</string>
     <string name="money_cash">Деньги наличными</string>
     <string name="for_any_purpose">на любые цели</string>
+    <string name="only_number_and_english_char">Только цифры и латинские буквы</string>
+    <string name="password_mismatch">Пароли не совпадают</string>
+    <string name="login_is_buzy">Извините, пользователь с данным логином уже зарегистрирован</string>
+    <string name="unknown_error">Произошла непредвиденная ошибка</string>
+    <string name="user_hasnot">Такого пользователя не существует</string>
 </resources>

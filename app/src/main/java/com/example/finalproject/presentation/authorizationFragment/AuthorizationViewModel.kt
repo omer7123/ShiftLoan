@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.finalproject.core.Resource
 import com.example.finalproject.domain.entity.AuthEntity
 import com.example.finalproject.domain.useCase.LoginUseCase
-import com.example.finalproject.domain.useCase.SaveSharedPrefAuthUseCase
 import com.example.finalproject.domain.useCase.SaveTokenUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -15,55 +14,36 @@ import javax.inject.Inject
 
 class AuthorizationViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
-    private val saveSharedPrefAuthUseCase: SaveSharedPrefAuthUseCase,
     private val saveTokenUseCase: SaveTokenUseCase
 ) : ViewModel() {
 
-    private val _screenState: MutableLiveData<AuthorizationScreenState> =
-        MutableLiveData(AuthorizationScreenState.Initial)
-    val screenState: LiveData<AuthorizationScreenState> = _screenState
+    private val _authorizationStatusState: MutableLiveData<AuthorizationStatusState> =
+        MutableLiveData()
+    val screenState: LiveData<AuthorizationStatusState> = _authorizationStatusState
 
-    val handler = CoroutineExceptionHandler { _, error ->
-        _screenState.value = AuthorizationScreenState.Error("Произошла ошибка, попробуйте еще раз")
+    private val handler = CoroutineExceptionHandler { _, _ ->
+        _authorizationStatusState.value = AuthorizationStatusState.Error(null, null)
     }
 
     fun auth(auth: AuthEntity) {
-        if (validationData(auth.name, auth.password)) {
-            viewModelScope.launch(handler) {
-                _screenState.value = AuthorizationScreenState.Loading
-                when (val result = loginUseCase(auth)) {
-                    is Resource.Error -> _screenState.value =
-                        AuthorizationScreenState.Error(result.msg.toString())
+        viewModelScope.launch(handler) {
+            _authorizationStatusState.value = AuthorizationStatusState.Loading
+            when (val result = loginUseCase(auth)) {
+                is Resource.Error -> _authorizationStatusState.value =
+                    AuthorizationStatusState.Error(result.msg.toString(), result.responseCode)
 
-                    Resource.Loading -> _screenState.value = AuthorizationScreenState.Loading
-                    is Resource.Success -> renderSuccess(auth, result.data)
-                }
+                Resource.Loading -> _authorizationStatusState.value =
+                    AuthorizationStatusState.Loading
+
+                is Resource.Success -> renderSuccess(result.data)
             }
         }
+
     }
 
-    private suspend fun renderSuccess(auth: AuthEntity, token: String) {
-        saveSharedPrefAuthUseCase(auth)
+    private suspend fun renderSuccess(token: String) {
         saveTokenUseCase(token)
-        _screenState.value = AuthorizationScreenState.Success
+        _authorizationStatusState.value = AuthorizationStatusState.Success
     }
 
-    private fun validationData(name: String, password: String): Boolean {
-        val nameError = if (name.isEmpty()) {
-            "Поле не может быть пустым"
-        } else null
-
-        val passwordError = if (password.isEmpty()) {
-            "Поле не может быть пустым"
-        } else null
-
-        if (nameError != null || passwordError != null) {
-            _screenState.value = AuthorizationScreenState.ValidationError(
-                nameError = nameError,
-                passwordError = passwordError,
-            )
-            return false
-        }
-        return true
-    }
 }

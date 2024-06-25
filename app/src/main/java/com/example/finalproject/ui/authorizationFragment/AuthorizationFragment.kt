@@ -14,7 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.finalproject.R
 import com.example.finalproject.databinding.FragmentAuthorizationBinding
 import com.example.finalproject.domain.entity.AuthEntity
-import com.example.finalproject.presentation.authorizationFragment.AuthorizationScreenState
+import com.example.finalproject.presentation.authorizationFragment.AuthorizationStatusState
 import com.example.finalproject.presentation.authorizationFragment.AuthorizationViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.util.expand
@@ -67,18 +67,23 @@ class AuthorizationFragment : Fragment() {
         binding.signBtn.setOnClickListener {
             val name = binding.loginTv.text.toString()
             val password = binding.passwordTv.text.toString()
-            viewModel.auth(AuthEntity(name, password))
+
+            if (name.isEmpty()) binding.containerLogin.error =
+                getString(R.string.field_cannot_be_empty)
+            if (password.isEmpty()) binding.containerPassword.error =
+                getString(R.string.field_cannot_be_empty)
+
+            if (name.isNotEmpty() && password.isNotEmpty())
+                viewModel.auth(AuthEntity(name, password))
         }
     }
 
-
-    private fun render(state: AuthorizationScreenState) {
+    private fun render(state: AuthorizationStatusState) {
         when (state) {
-            is AuthorizationScreenState.Error -> renderError(state.msg)
-            AuthorizationScreenState.Initial -> {}
-            AuthorizationScreenState.Loading -> renderLoading()
-            AuthorizationScreenState.Success -> renderSuccess()
-            is AuthorizationScreenState.ValidationError -> renderValidationError(state)
+            is AuthorizationStatusState.Error -> renderError(state.msg, state.code)
+            AuthorizationStatusState.Loading -> renderLoading()
+            AuthorizationStatusState.Success -> renderSuccess()
+
         }
     }
 
@@ -86,10 +91,6 @@ class AuthorizationFragment : Fragment() {
         findNavController().navigate(R.id.action_homeAuthenticationFragment_to_homeFragment)
     }
 
-    private fun renderValidationError(state: AuthorizationScreenState.ValidationError) {
-        binding.containerLogin.error = state.nameError
-        binding.containerPassword.error = state.passwordError
-    }
 
     private fun renderLoading() {
         binding.content.shrink()
@@ -100,9 +101,14 @@ class AuthorizationFragment : Fragment() {
         binding.progressCircular.expand()
     }
 
-    private fun renderError(msg: String) {
+    private fun renderError(msg: String?, code: Int?) {
+        if (msg.isNullOrEmpty()) requireContext().showToast(R.string.unknown_error.toString())
+        else {
+            if (code == 404) requireContext().showToast(getString(R.string.user_hasnot))
+            else requireContext().showToast(msg)
+        }
+
         binding.content.isClickable = true
-        requireContext().showToast(msg)
         binding.content.expand()
         binding.progressCircular.isVisible = false
     }

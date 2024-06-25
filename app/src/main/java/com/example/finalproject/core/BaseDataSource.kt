@@ -20,29 +20,32 @@ abstract class BaseDataSource {
                 return if (body != null || response.code() in 200..299) {
                     Resource.Success(body!!)
                 } else {
-                    Resource.Error(response.message(), response.body())
+                    Resource.Error(response.message(), response.body(), response.code())
                 }
             } else {
                 val errorBody = response.errorBody()?.string() ?: "Unknown error"
 
                 if (errorBody.startsWith("{") && errorBody.endsWith("}")) {
                     val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                    val adapter: JsonAdapter<ErrorResponse> = moshi.adapter(ErrorResponse::class.java)
+                    val adapter: JsonAdapter<ErrorResponse> =
+                        moshi.adapter(ErrorResponse::class.java)
                     val errorResponse = adapter.fromJson(errorBody)
 
-                    return Resource.Error(errorResponse?.detail ?: "Unknown error", null)
+                    return Resource.Error(
+                        errorResponse?.detail ?: "Unknown error",
+                        null,
+                        response.code()
+                    )
                 } else {
-                    return Resource.Error(errorBody, null)
+                    return Resource.Error(errorBody, null, response.code())
                 }
             }
-        }catch (e: SocketTimeoutException){
-            return Resource.Error("Время ожидаемого запроса истекло", null)
-        }
-        catch (e: UnknownHostException){
-            return Resource.Error("Нет соединения с интернетом", null)
-        }
-        catch (e: Exception) {
-            return Resource.Error("Произошла непредвиденная ошибка", null)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Error("Время ожидаемого запроса истекло", null, null)
+        } catch (e: UnknownHostException) {
+            return Resource.Error("Нет соединения с интернетом", null, null)
+        } catch (e: Exception) {
+            return Resource.Error("Произошла непредвиденная ошибка", null, null)
         }
     }
 }
