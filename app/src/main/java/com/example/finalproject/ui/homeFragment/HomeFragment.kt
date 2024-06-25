@@ -1,6 +1,8 @@
 package com.example.finalproject.ui.homeFragment
 
 import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,7 @@ import com.example.finalproject.presentation.homeFragment.HomeViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.ui.NavbarHider
 import com.example.finalproject.ui.loanDetailFragment.LoanDetailFragment
+import com.example.finalproject.util.NetworkReceiver
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
 import javax.inject.Inject
@@ -30,6 +33,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = requireNotNull(_binding)
 
+    private val networkReceiver = NetworkReceiver()
     private val adapter = LoanAdapter(this::clickListener)
 
     @Inject
@@ -43,6 +47,17 @@ class HomeFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         requireContext().getAppComponent().loanComponent().create().inject(this)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireContext().registerReceiver(networkReceiver, intentFilter)
+
+        networkReceiver.isConnected.observe(viewLifecycleOwner) {
+            if (it && viewModel.screenState.value is HomeScreenState.Error)
+                viewModel.getLoanConditions()
+        }
     }
 
     override fun onCreateView(

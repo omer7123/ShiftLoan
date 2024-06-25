@@ -35,7 +35,6 @@ class AuthorizationViewModel @Inject constructor(
                 is Resource.Success -> renderSuccess(result.data)
             }
         }
-
     }
 
     private suspend fun renderSuccess(token: String) {
