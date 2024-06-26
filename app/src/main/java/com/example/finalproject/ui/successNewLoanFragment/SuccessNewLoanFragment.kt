@@ -30,7 +30,7 @@ class SuccessNewLoanFragment : Fragment() {
 
     private fun initListener() {
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_successNewLoanFragment_to_homeFragment)
         }
 
         binding.nextBtn.setOnClickListener {

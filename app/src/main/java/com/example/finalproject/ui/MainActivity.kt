@@ -70,7 +70,6 @@ class MainActivity : AppCompatActivity(), NavbarHider {
             if (item.itemId == R.id.homeFragment) {
                 val currentDestination = navController.currentDestination
                 if (currentDestination?.id == R.id.homeFragment) {
-
                     return@setOnItemSelectedListener false
                 }
             }

@@ -16,21 +16,21 @@
         android:label="fragment_splash_screen"
         tools:layout="@layout/fragment_home_authentication">
         <action
+            android:id="@+id/action_homeAuthenticationFragment_to_boardFragment"
+            app:destination="@id/boardFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_homeAuthenticationFragment_to_boardFragment"
-            app:destination="@id/boardFragment"
             app:popUpTo="@id/homeAuthenticationFragment"
             app:popUpToInclusive="true" />
         <action
+            android:id="@+id/action_homeAuthenticationFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_homeAuthenticationFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
             app:popUpTo="@id/homeAuthenticationFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -88,12 +88,12 @@
         android:label="fragment_loans"
         tools:layout="@layout/fragment_loans">
         <action
+            android:id="@+id/action_loansFragment_to_loanDetailFragment"
+            app:destination="@id/loanDetailFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_loansFragment_to_loanDetailFragment"
-            app:destination="@id/loanDetailFragment" />
+            app:popExitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/loanDetailFragment"
@@ -106,56 +106,56 @@
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu">
         <action
-            app:enterAnim="@anim/slide_from_right"
-            app:exitAnim="@anim/slide_in_left"
-            app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
             android:id="@+id/action_menuFragment_to_loansFragment"
-            app:destination="@id/loansFragment" />
-        <action
+            app:destination="@id/loansFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
             android:id="@+id/action_menuFragment_to_specialOfferFragment"
-            app:destination="@id/specialOfferFragment" />
-        <action
+            app:destination="@id/specialOfferFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
             android:id="@+id/action_menuFragment_to_addressOfBankFragment"
-            app:destination="@id/addressOfBankFragment" />
-        <action
+            app:destination="@id/addressOfBankFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
             android:id="@+id/action_menuFragment_to_boardFragment"
-            app:destination="@id/boardFragment" />
-        <action
+            app:destination="@id/boardFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
             android:id="@+id/action_menuFragment_to_helpFragment"
-            app:destination="@id/helpFragment" />
-        <action
+            app:destination="@id/helpFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
             android:id="@+id/action_menuFragment_to_homeAuthenticationFragment"
             app:destination="@id/homeAuthenticationFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_in_right"
             app:popUpTo="@id/homeAuthenticationFragment"
             app:popUpToInclusive="true" />
         <action
+            android:id="@+id/action_menuFragment_to_changeLanguageFragment"
+            app:destination="@id/changeLanguageFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_menuFragment_to_changeLanguageFragment"
-            app:destination="@id/changeLanguageFragment" />
+            app:popExitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/specialOfferFragment"
@@ -163,12 +163,12 @@
         android:label="fragment_special_offer"
         tools:layout="@layout/fragment_special_offer">
         <action
+            android:id="@+id/action_specialOfferFragment_to_addressOfBankFragment"
+            app:destination="@id/addressOfBankFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_specialOfferFragment_to_addressOfBankFragment"
-            app:destination="@id/addressOfBankFragment" />
+            app:popExitAnim="@anim/slide_in_right" />
     </fragment>
     <fragment
         android:id="@+id/addressOfBankFragment"
@@ -176,12 +176,12 @@
         android:label="fragment_address_of_bank"
         tools:layout="@layout/fragment_address_of_bank">
         <action
+            android:id="@+id/action_addressOfBankFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_addressOfBankFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -201,21 +201,21 @@
         android:label="fragment_new_loan"
         tools:layout="@layout/fragment_new_loan">
         <action
+            android:id="@+id/action_newLoanFragment_to_successNewLoanFragment"
+            app:destination="@id/successNewLoanFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_newLoanFragment_to_successNewLoanFragment"
-            app:destination="@id/successNewLoanFragment"
             app:popUpTo="@id/newLoanFragment"
             app:popUpToInclusive="true" />
         <action
+            android:id="@+id/action_newLoanFragment_to_errorNewLoanFragment"
+            app:destination="@id/errorNewLoanFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_newLoanFragment_to_errorNewLoanFragment"
-            app:destination="@id/errorNewLoanFragment"
             app:popUpTo="@id/newLoanFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -225,12 +225,21 @@
         android:label="fragment_success_new_loan"
         tools:layout="@layout/fragment_success_new_loan">
         <action
+            android:id="@+id/action_successNewLoanFragment_to_addressOfBankFragment"
+            app:destination="@id/addressOfBankFragment"
+            app:enterAnim="@anim/slide_from_right"
+            app:exitAnim="@anim/slide_in_left"
+            app:popEnterAnim="@anim/slide_from_left"
+            app:popExitAnim="@anim/slide_in_right" />
+        <action
+            android:id="@+id/action_successNewLoanFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_in_left"
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_in_right"
-            android:id="@+id/action_successNewLoanFragment_to_addressOfBankFragment"
-            app:destination="@id/addressOfBankFragment" />
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/errorNewLoanFragment"

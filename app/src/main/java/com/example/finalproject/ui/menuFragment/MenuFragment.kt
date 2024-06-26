@@ -15,6 +15,7 @@ import com.example.finalproject.databinding.FragmentMenuBinding
 import com.example.finalproject.presentation.menuFragment.LogOutStatusState
 import com.example.finalproject.presentation.menuFragment.MenuViewModel
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
+import com.example.finalproject.ui.NavbarHider
 import com.example.finalproject.util.getAppComponent
 import com.example.finalproject.util.showToast
 import javax.inject.Inject
@@ -24,6 +25,8 @@ class MenuFragment : Fragment() {
 
     private var _binding: FragmentMenuBinding? = null
     private val binding get() = requireNotNull(_binding)
+
+    private var navbarHider: NavbarHider? = null
 
     @Inject
     lateinit var viewModelFactory: MultiViewModelFactory
@@ -41,6 +44,11 @@ class MenuFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMenuBinding.inflate(layoutInflater)
+
+        if (context is NavbarHider) {
+            navbarHider = context as NavbarHider
+            navbarHider!!.setNavbarVisibility(true)
+        }
 
         viewModel.logOutStatus.observe(viewLifecycleOwner) { state ->
             render(state)
