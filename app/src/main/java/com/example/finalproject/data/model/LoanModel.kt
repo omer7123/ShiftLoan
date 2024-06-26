@@ -1,5 +1,7 @@
 package com.example.finalproject.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -10,10 +12,12 @@ data class LoanConditionsModel(
 )
 
 @Serializable
+@Entity
 data class LoanModel(
     val amount: Float,
     val date: String,
     val firstName: String,
+    @PrimaryKey
     val id: Int,
     val lastName: String,
     val percent: Double,

@@ -72,5 +72,9 @@ dependencies {
     implementation (libs.androidx.security.crypto)
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
-
+    //Room
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

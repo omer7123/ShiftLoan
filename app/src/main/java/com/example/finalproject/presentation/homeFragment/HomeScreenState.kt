@@ -10,7 +10,7 @@ sealed class HomeScreenState {
     data class Error(val msg: String) : HomeScreenState()
     data class Content(
         val sumLoan: String,
-        val list: List<LoanEntity>,
-        val conditions: LoanConditionsEntity
+        val list: List<LoanEntity>?,
+        val conditions: LoanConditionsEntity?
     ) : HomeScreenState()
 }

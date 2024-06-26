@@ -10,4 +10,7 @@ interface LoanRepository {
     suspend fun getLoansAll(): Resource<List<LoanEntity>>
     suspend fun getLoan(id: Int): Resource<LoanEntity>
     suspend fun createLoan(loan: LoanRequestEntity): Resource<LoanEntity>
+    suspend fun saveLoans(loans: List<LoanEntity>)
+    suspend fun getLocalLoans(): List<LoanEntity>
+    suspend fun clearAllLoans()
 }

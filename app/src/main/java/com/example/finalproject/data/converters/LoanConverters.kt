@@ -19,6 +19,20 @@ fun LoanModel.toLoanEntity(): LoanEntity {
     )
 }
 
+fun LoanEntity.toLoanModel(): LoanModel {
+    return LoanModel(
+        amount = this.amount,
+        date = this.date,
+        firstName = this.firstName,
+        id = this.id,
+        lastName = this.lastName,
+        percent = this.percent,
+        period = this.period,
+        phoneNumber = this.phoneNumber,
+        state = this.state
+    )
+}
+
 fun LoanRequestEntity.toLoanRequestModel(): LoanRequestModel {
     return LoanRequestModel(
         amount = this.amount.toFloat(),

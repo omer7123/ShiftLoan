@@ -55,9 +55,20 @@ class HomeFragment : Fragment() {
         requireContext().registerReceiver(networkReceiver, intentFilter)
 
         networkReceiver.isConnected.observe(viewLifecycleOwner) {
-            if (it && viewModel.screenState.value is HomeScreenState.Error)
-                viewModel.getLoanConditions()
+            if (it) {
+                val currentState = viewModel.screenState.value
+                if (currentState is HomeScreenState.Error || isContentIncomplete(currentState)) {
+                    viewModel.getLoanConditions()
+                }
+            }
         }
+    }
+
+    private fun isContentIncomplete(state: HomeScreenState?): Boolean {
+        if (state is HomeScreenState.Content) {
+            return state.conditions == null || state.list.isNullOrEmpty()
+        }
+        return false
     }
 
     override fun onCreateView(
@@ -126,33 +137,41 @@ class HomeFragment : Fragment() {
         stopShimmer()
 
         binding.sumEt.setText(state.sumLoan)
-        val conditions =
-            getString(
-                R.string.conditions_loan,
-                state.conditions.percent.toString(),
-                state.conditions.period.toString()
-            )
-        binding.conditionsTv.text = conditions
-        binding.sumSb.max = state.conditions.maxAmount
-        binding.maxTv.text =
-            getString(R.string.max_value_predel, state.conditions.maxAmount.toString())
 
-        if (state.sumLoan.toInt() < 1000) {
-            binding.validationTv.text = getString(R.string.minimum_1000)
-        } else if (state.sumLoan.toInt() > state.conditions.maxAmount) {
-            binding.validationTv.text =
-                getString(R.string.max_value_loan, state.conditions.maxAmount.toString())
-        } else {
-            binding.validationTv.text = ""
+        if (state.conditions == null) {
+            binding.conditionsTv.text = getString(R.string.loan_processing_not_available)
+            binding.newLoanBtn.isClickable = false
+        }
+        state.conditions?.let {
+            binding.newLoanBtn.isClickable = true
+            val conditions =
+                getString(
+                    R.string.conditions_loan,
+                    state.conditions.percent.toString(),
+                    state.conditions.period.toString()
+                )
+            binding.conditionsTv.text = conditions
+            binding.sumSb.max = state.conditions.maxAmount
+            binding.maxTv.text =
+                getString(R.string.max_value_predel, state.conditions.maxAmount.toString())
+
+            if (state.sumLoan.toInt() < 1000) {
+                binding.validationTv.text = getString(R.string.minimum_1000)
+            } else if (state.sumLoan.toInt() > state.conditions.maxAmount) {
+                binding.validationTv.text =
+                    getString(R.string.max_value_loan, state.conditions.maxAmount.toString())
+            } else {
+                binding.validationTv.text = ""
+            }
         }
 
-        if (state.list.isNotEmpty()) {
+        if (state.list.isNullOrEmpty()) {
+            binding.loanEmptyTv.isVisible = true
+            binding.myLoansContainer.isVisible = false
+        } else {
             binding.loanEmptyTv.isVisible = false
             binding.myLoansContainer.isVisible = true
             adapter.submitList(state.list)
-        } else {
-            binding.loanEmptyTv.isVisible = true
-            binding.myLoansContainer.isVisible = false
         }
     }
 
@@ -248,11 +267,15 @@ class HomeFragment : Fragment() {
                     .isEmpty() && viewModel.screenState.value is HomeScreenState.Content
             ) {
                 val bundle = Bundle()
-                val data = LoanRequestWithoutUserData(
-                    binding.sumEt.text.toString().toInt(),
-                    (viewModel.screenState.value as HomeScreenState.Content).conditions.percent,
-                    (viewModel.screenState.value as HomeScreenState.Content).conditions.period
-                )
+                val data =
+                    (viewModel.screenState.value as HomeScreenState.Content).conditions?.let { it1 ->
+                        LoanRequestWithoutUserData(
+                            binding.sumEt.text.toString().toInt(),
+                            it1.percent,
+                            it1.period
+                        )
+                    }
+
                 bundle.putSerializable(DATA, data)
                 findNavController().navigate(R.id.action_homeFragment_to_newLoanFragment, bundle)
             }

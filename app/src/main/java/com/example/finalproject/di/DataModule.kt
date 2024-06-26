@@ -1,6 +1,10 @@
 package com.example.finalproject.di
 
+import android.content.Context
+import androidx.room.Room
 import com.example.finalproject.data.local.encryptedSharedPref.AuthenticationSharedPrefDataSource
+import com.example.finalproject.data.local.room.AppDatabase
+import com.example.finalproject.data.local.room.LoanDao
 import com.example.finalproject.data.remote.authentication.AuthenticationService
 import com.example.finalproject.data.remote.interceptor.TokenInterceptor
 import com.example.finalproject.data.remote.loan.LoanService
@@ -114,5 +118,21 @@ class DataModule {
     @Singleton
     fun provideLoanService(@Named("WithAuth") retrofit: Retrofit): LoanService {
         return retrofit.create(LoanService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDatabase(context: Context): AppDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            AppDatabase::class.java,
+            "loan_db"
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoanDao(appDatabase: AppDatabase): LoanDao {
+        return appDatabase.loanDao()
     }
 }

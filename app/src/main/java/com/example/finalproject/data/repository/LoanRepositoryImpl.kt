@@ -2,7 +2,9 @@ package com.example.finalproject.data.repository
 
 import com.example.finalproject.core.Resource
 import com.example.finalproject.data.converters.toLoanEntity
+import com.example.finalproject.data.converters.toLoanModel
 import com.example.finalproject.data.converters.toLoanRequestModel
+import com.example.finalproject.data.local.room.LoanRoomDataSource
 import com.example.finalproject.data.remote.loan.LoanDataSource
 import com.example.finalproject.domain.entity.LoanConditionsEntity
 import com.example.finalproject.domain.entity.LoanEntity
@@ -10,7 +12,10 @@ import com.example.finalproject.domain.entity.LoanRequestEntity
 import com.example.finalproject.domain.repository.LoanRepository
 import javax.inject.Inject
 
-class LoanRepositoryImpl @Inject constructor(private val dataSource: LoanDataSource) :
+class LoanRepositoryImpl @Inject constructor(
+    private val dataSource: LoanDataSource,
+    private val roomDataSource: LoanRoomDataSource
+) :
     LoanRepository {
     override suspend fun getLoanConditions(): Resource<LoanConditionsEntity> {
         return when (val result =
@@ -48,5 +53,19 @@ class LoanRepositoryImpl @Inject constructor(private val dataSource: LoanDataSou
             is Resource.Error -> Resource.Error(result.msg.toString(), null, result.responseCode)
             is Resource.Success -> Resource.Success(result.data.toLoanEntity())
         }
+    }
+
+    override suspend fun saveLoans(loans: List<LoanEntity>) {
+        val listLoansModel = loans.map { it.toLoanModel() }
+        roomDataSource.saveAll(listLoansModel)
+    }
+
+    override suspend fun getLocalLoans(): List<LoanEntity> {
+        val listLoansEntity = roomDataSource.getAll().map { it.toLoanEntity() }
+        return listLoansEntity
+    }
+
+    override suspend fun clearAllLoans() {
+        roomDataSource.deleteAllLoans()
     }
 }
