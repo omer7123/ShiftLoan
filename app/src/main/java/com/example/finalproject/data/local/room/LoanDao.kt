@@ -17,4 +17,7 @@ interface LoanDao {
 
     @Query("DELETE FROM loanmodel")
     suspend fun clearContacts()
+
+    @Query("SELECT * FROM loanmodel WHERE id = :id LIMIT 1")
+    suspend fun getLoanById(id: Int): LoanModel
 }

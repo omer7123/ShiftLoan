@@ -59,7 +59,7 @@ class HomeViewModel @Inject constructor(
             is Resource.Success -> {
                 val smallCountLoans = result.data.take(3)
                 deleteAllLoansInRoomUseCase()
-                saveLoansToRoomUseCase(result.data)
+                saveLoansToRoomUseCase(result.data.reversed())
                 _screenState.value =
                     HomeScreenState.Content("7000", smallCountLoans, conditions)
             }

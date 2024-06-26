@@ -7,4 +7,5 @@ interface LoanRoomDataSource {
     suspend fun getAll(): List<LoanModel>
     suspend fun saveAll(loans: List<LoanModel>)
     suspend fun deleteAllLoans()
+    suspend fun getLoanById(id: Int): LoanModel
 }

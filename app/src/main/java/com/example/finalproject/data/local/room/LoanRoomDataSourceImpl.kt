@@ -25,4 +25,12 @@ class LoanRoomDataSourceImpl @Inject constructor(private val db: AppDatabase) : 
             db.loanDao().clearContacts()
         }
     }
+
+    override suspend fun getLoanById(id: Int): LoanModel {
+        val result: LoanModel
+        withContext(Dispatchers.IO) {
+            result = db.loanDao().getLoanById(id)
+        }
+        return result
+    }
 }

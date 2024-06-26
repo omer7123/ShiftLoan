@@ -13,4 +13,5 @@ interface LoanRepository {
     suspend fun saveLoans(loans: List<LoanEntity>)
     suspend fun getLocalLoans(): List<LoanEntity>
     suspend fun clearAllLoans()
+    suspend fun getLoanByIdFromRoom(id: Int): LoanEntity
 }

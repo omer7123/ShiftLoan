@@ -5,11 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.finalproject.core.Resource
+import com.example.finalproject.domain.useCase.DeleteAllLoansInRoomUseCase
 import com.example.finalproject.domain.useCase.GetLoansAllUseCase
+import com.example.finalproject.domain.useCase.GetLoansFromRoomUseCase
+import com.example.finalproject.domain.useCase.SaveLoansToRoomUseCase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LoansViewModel @Inject constructor(private val getLoansAllUseCase: GetLoansAllUseCase) :
+class LoansViewModel @Inject constructor(
+    private val getLoansAllUseCase: GetLoansAllUseCase,
+    private val getLoansFromRoomUseCase: GetLoansFromRoomUseCase,
+    private val saveLoansToRoomUseCase: SaveLoansToRoomUseCase,
+    private val deleteAllLoansInRoomUseCase: DeleteAllLoansInRoomUseCase
+) :
     ViewModel() {
 
     private val _screenState: MutableLiveData<LoansScreenState> =
@@ -20,10 +28,19 @@ class LoansViewModel @Inject constructor(private val getLoansAllUseCase: GetLoan
         viewModelScope.launch {
             _screenState.value = LoansScreenState.Loading
             when (val result = getLoansAllUseCase()) {
-                is Resource.Error -> _screenState.value =
-                    LoansScreenState.Error(result.msg.toString())
+                is Resource.Error -> {
+                    _screenState.value = LoansScreenState.Error(result.msg.toString())
 
-                is Resource.Success -> _screenState.value = LoansScreenState.Content(result.data)
+                    val list = getLoansFromRoomUseCase()
+                    _screenState.value =
+                        LoansScreenState.Content(list)
+                }
+
+                is Resource.Success -> {
+                    deleteAllLoansInRoomUseCase()
+                    saveLoansToRoomUseCase(result.data.reversed())
+                    _screenState.value = LoansScreenState.Content(result.data)
+                }
             }
         }
     }

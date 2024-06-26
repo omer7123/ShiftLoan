@@ -68,4 +68,9 @@ class LoanRepositoryImpl @Inject constructor(
     override suspend fun clearAllLoans() {
         roomDataSource.deleteAllLoans()
     }
+
+    override suspend fun getLoanByIdFromRoom(id: Int): LoanEntity {
+        val loanEntity = roomDataSource.getLoanById(id).toLoanEntity()
+        return loanEntity
+    }
 }
