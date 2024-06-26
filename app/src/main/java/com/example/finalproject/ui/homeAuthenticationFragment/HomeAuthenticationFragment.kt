@@ -1,6 +1,8 @@
 package com.example.finalproject.ui.homeAuthenticationFragment
 
 import android.content.Context
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +18,7 @@ import com.example.finalproject.presentation.homeAuthenticationFragment.HomeAuth
 import com.example.finalproject.presentation.multiViewModelFactory.MultiViewModelFactory
 import com.example.finalproject.ui.NavbarHider
 import com.example.finalproject.ui.authFragment.AuthenticationFragment
+import com.example.finalproject.util.NetworkReceiver
 import com.example.finalproject.util.getAppComponent
 import javax.inject.Inject
 
@@ -31,6 +34,7 @@ class HomeAuthenticationFragment : Fragment() {
         ViewModelProvider(this, viewModelFactory)[HomeAuthenticationViewModel::class.java]
     }
 
+    private val networkReceiver = NetworkReceiver()
     private var navbarHider: NavbarHider? = null
 
     override fun onAttach(context: Context) {
@@ -38,6 +42,21 @@ class HomeAuthenticationFragment : Fragment() {
         requireContext().getAppComponent().authenticationComponent().create().inject(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        val intentFilter = IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION)
+        requireContext().registerReceiver(networkReceiver, intentFilter)
+
+        networkReceiver.isConnected.observe(viewLifecycleOwner) {
+            if (it) {
+                val currentState = viewModel.authStatus.value
+                if (currentState is HomeAuthenticationAuthStatus.Error) {
+                    viewModel.auth()
+                }
+            }
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
