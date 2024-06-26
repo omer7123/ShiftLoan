@@ -33,7 +33,7 @@ class LoansViewModel @Inject constructor(
 
                     val list = getLoansFromRoomUseCase()
                     _screenState.value =
-                        LoansScreenState.Content(list)
+                        LoansScreenState.Content(list.reversed())
                 }
 
                 is Resource.Success -> {
